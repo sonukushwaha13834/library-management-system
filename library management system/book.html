@@ -1,0 +1,5995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System | Books</title>
+
+    <link rel="stylesheet" href="book.css">
+
+    <style>
+    /* =========================================
+       BOOK MODALS
+       Scoped so book.css layout is not disturbed
+    ========================================== */
+
+    #add-book-modal.modal-overlay,
+    #edit-book-modal.modal-overlay,
+    #admin-profile-modal.modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    #add-book-modal .modal,
+    #edit-book-modal .modal,
+    #admin-profile-modal .modal {
+        width: 100%;
+        max-width: 620px;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: #ffffff;
+        border-radius: 14px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        padding: 25px;
+        box-sizing: border-box;
+    }
+
+    #add-book-modal .modal-header,
+    #edit-book-modal .modal-header,
+    #admin-profile-modal .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 15px;
+    }
+
+    #add-book-modal .modal-header h2,
+    #edit-book-modal .modal-header h2,
+    #admin-profile-modal .modal-header h2 {
+        margin: 0;
+        font-size: 22px;
+        color: #1e293b;
+    }
+
+    #add-book-modal .close-modal,
+    #edit-book-modal .close-modal,
+    #admin-profile-modal .close-modal {
+        border: none;
+        background: transparent;
+        font-size: 28px;
+        cursor: pointer;
+        color: #64748b;
+        line-height: 1;
+    }
+
+    #add-book-modal .close-modal:hover,
+    #edit-book-modal .close-modal:hover,
+    #admin-profile-modal .close-modal:hover {
+        color: #ef4444;
+    }
+
+    #add-book-modal .form-group,
+    #edit-book-modal .form-group {
+        margin-bottom: 16px;
+    }
+
+    #add-book-modal .form-group label,
+    #edit-book-modal .form-group label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 600;
+        color: #334155;
+    }
+
+    #add-book-modal .form-group input,
+    #add-book-modal .form-group select,
+    #edit-book-modal .form-group input,
+    #edit-book-modal .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 11px 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+        background: #fff;
+    }
+
+    #add-book-modal .form-group input:focus,
+    #add-book-modal .form-group select:focus,
+    #edit-book-modal .form-group input:focus,
+    #edit-book-modal .form-group select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #add-book-modal .cover-preview,
+    #edit-book-modal .cover-preview {
+        width: 130px;
+        height: 170px;
+        margin-top: 10px;
+        border: 1px solid #dbe3ec;
+        border-radius: 8px;
+        overflow: hidden;
+        display: none;
+        background: #f8fafc;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    #add-book-modal .cover-preview img,
+    #edit-book-modal .cover-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    #add-book-modal .cover-help,
+    #edit-book-modal .cover-help {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #64748b;
+    }
+
+    #add-book-modal .modal-actions,
+    #edit-book-modal .modal-actions,
+    #admin-profile-modal .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    #add-book-modal .cancel-btn,
+    #add-book-modal .save-btn,
+    #edit-book-modal .cancel-btn,
+    #edit-book-modal .save-btn,
+    #admin-profile-modal .cancel-btn {
+        border: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    #add-book-modal .cancel-btn,
+    #edit-book-modal .cancel-btn,
+    #admin-profile-modal .cancel-btn {
+        background: #e2e8f0;
+        color: #334155;
+    }
+
+    #add-book-modal .cancel-btn:hover,
+    #edit-book-modal .cancel-btn:hover,
+    #admin-profile-modal .cancel-btn:hover {
+        background: #cbd5e1;
+    }
+
+    #add-book-modal .save-btn,
+    #edit-book-modal .save-btn {
+        background: #2563eb;
+        color: #ffffff;
+    }
+
+    #add-book-modal .save-btn:hover,
+    #edit-book-modal .save-btn:hover {
+        background: #1d4ed8;
+    }
+
+    /* =========================================
+       MOBILE MODAL
+    ========================================== */
+
+    @media (max-width: 650px) {
+
+        #add-book-modal .modal,
+        #edit-book-modal .modal,
+        #admin-profile-modal .modal {
+            padding: 18px;
+            max-height: 92vh;
+        }
+
+        #add-book-modal .modal-actions,
+        #edit-book-modal .modal-actions,
+        #admin-profile-modal .modal-actions {
+            flex-direction: column;
+        }
+
+        #add-book-modal .cancel-btn,
+        #add-book-modal .save-btn,
+        #edit-book-modal .cancel-btn,
+        #edit-book-modal .save-btn,
+        #admin-profile-modal .cancel-btn {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+         SIDEBAR
+    =========================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+            <div class="logo-icon">📚</div>
+
+            <div class="logo-text">
+                <h2>LIBRARY</h2>
+                <span>MANAGEMENT SYSTEM</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html" class="nav-link">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="book.html" class="nav-link active">
+                <span>📚</span>
+                <span>Books</span>
+            </a>
+
+            <a href="students.html" class="nav-link">
+                <span>👨‍🎓</span>
+                <span>Students</span>
+            </a>
+
+            <a href="issue-book.html" class="nav-link">
+                <span>📖</span>
+                <span>Issue Book</span>
+            </a>
+
+            <a href="return-book.html" class="nav-link">
+                <span>↩️</span>
+                <span>Return Book</span>
+            </a>
+
+            <a href="fines.html" class="nav-link">
+                <span>💰</span>
+                <span>Fines</span>
+            </a>
+
+            <a href="admin-book-history.html" class="nav-link">
+                <span>📋</span>
+                <span>Book History</span>
+            </a>
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+             <a href="reports.html" class="nav-link">
+                <span>📊</span>
+                <span>Reports</span>
+            </a>
+
+
+            <a href="#" class="nav-link" onclick="openAdminProfile(event)">
+                <span>👤</span>
+                <span>My Profile</span>
+            </a>
+
+            <a href="index.html" class="nav-link logout-link">
+                <span>🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button
+                    class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    type="button">
+                    ☰
+                </button>
+
+                <div>
+                    <h1>Books</h1>
+                    <p>Manage all books in your library</p>
+                </div>
+
+            </div>
+
+            <div class="header-right">
+
+               <button class="notification" type="button" onclick="openNotifications()">
+    🔔
+    <span class="notification-dot"></span>
+</button>
+<button class="admin-profile" type="button" onclick="toggleAdminMenu(event)">
+   <span class="profile-avatar" id="adminAvatar">A</span>
+    <span class="arrow"></span>
+</button>
+<div id="admin-profile-menu" class="admin-profile-menu">
+
+    <button type="button" onclick="openAdminProfile(event)">
+        👤
+        <span>Admin Profile</span>
+    </button>
+
+    <a href="settings.html">
+        ⚙️
+        <span>Settings</span>
+    </a>
+
+    <a href="index.html" onclick="logoutAdmin()">
+        🚪
+        <span>Logout</span>
+    </a>
+
+</div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ==========================================
+             PAGE CONTENT
+        =========================================== -->
+
+        <section class="page-content">
+
+            <!-- PAGE TOP -->
+
+            <div class="page-top">
+
+                <div>
+                    <h2>Book Collection</h2>
+                    <p>View and manage your library books</p>
+                </div>
+
+                <button
+                    id="addBookBtn"
+                    class="add-book-btn"
+                    type="button">
+                    + Add New Book
+                </button>
+
+            </div>
+
+
+            <!-- ======================================
+                 STATS
+            ======================================= -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Total Books</span>
+                        <strong id="totalBooks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ✅
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Available Books</span>
+                        <strong id="availableBooks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📖
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Issued Books</span>
+                        <strong id="issuedBooks">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🗂️
+                    </div>
+
+                    <div class="stat-info">
+                        <span>Categories</span>
+                        <strong id="totalCategories">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ======================================
+                 SEARCH + FILTERS
+            ======================================= -->
+
+            <div class="filter-section">
+
+                <div class="search-box">
+
+                    <span>🔍</span>
+
+                    <input
+                        type="text"
+                        id="bookSearch"
+                        placeholder="Search by title, author or ISBN...">
+
+                </div>
+
+
+                <div class="filter-box">
+
+                    <select id="categoryFilter">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Programming">
+                            Programming
+                        </option>
+
+                        <option value="Database">
+                            Database
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="Mathematics">
+                            Mathematics
+                        </option>
+
+                        <option value="Electronics">
+                            Electronics
+                        </option>
+
+                    </select>
+
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="available">
+                            Available
+                        </option>
+
+                        <option value="issued">
+                            Issued
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ======================================
+                 BOOK TABLE
+            ======================================= -->
+
+            <div class="table-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Book</th>
+
+                                <th>Author</th>
+
+                                <th>Category</th>
+
+                                <th>ISBN</th>
+
+                                <th>Copies</th>
+
+                                <th>Available</th>
+
+                                <th>Status</th>
+
+                                <th>Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="booksTableBody">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- NO BOOKS -->
+
+                <div
+                    id="noBooks"
+                    style="
+                        display:none;
+                        padding:40px;
+                        text-align:center;
+                        color:#64748b;
+                    ">
+
+                    <div style="font-size:40px;">
+                        📚
+                    </div>
+
+                    <p>
+                        No books found.
+                    </p>
+
+                </div>
+
+
+                <!-- PAGINATION -->
+
+                <div class="pagination">
+
+                    <div id="paginationText">
+                        Showing 0 of 0 books
+                    </div>
+
+                    <div id="paginationButtons"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         ADD BOOK MODAL
+    =========================================== -->
+
+    <div
+        id="add-book-modal"
+        class="modal-overlay">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>Add New Book</h2>
+
+                <button
+                    type="button"
+                    class="close-modal"
+                    onclick="closeAddBook()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="addBookForm">
+
+                <div class="form-group">
+
+                    <label for="newBookTitle">
+                        Book Title *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="newBookTitle"
+                        placeholder="Enter book title"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="newBookAuthor">
+                        Author *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="newBookAuthor"
+                        placeholder="Enter author name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="newBookISBN">
+                        ISBN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="newBookISBN"
+                        placeholder="Enter ISBN">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="newBookCategory">
+                        Category *
+                    </label>
+
+                    <select
+                        id="newBookCategory"
+                        required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Programming">
+                            Programming
+                        </option>
+
+                        <option value="Database">
+                            Database
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="Mathematics">
+                            Mathematics
+                        </option>
+
+                        <option value="Electronics">
+                            Electronics
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="newBookCopies">
+                        Number of Copies *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="newBookCopies"
+                        min="1"
+                        value="1"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="newBookCover">
+                        Book Cover
+                    </label>
+
+                    <input
+                        type="file"
+                        id="newBookCover"
+                        accept="image/png, image/jpeg, image/jpg, image/webp">
+
+                    <small class="cover-help">
+                        JPG, PNG or WebP image.
+                    </small>
+
+
+                    <div
+                        id="coverPreview"
+                        class="cover-preview">
+
+                        <img
+                            id="coverPreviewImage"
+                            src=""
+                            alt="Book cover preview">
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeAddBook()">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        Add Book
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         EDIT BOOK MODAL
+    =========================================== -->
+
+    <div
+        id="edit-book-modal"
+        class="modal-overlay">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>Edit Book</h2>
+
+                <button
+                    type="button"
+                    class="close-modal"
+                    onclick="closeEditBook()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="editBookForm">
+
+                <input
+                    type="hidden"
+                    id="editBookId">
+
+
+                <div class="form-group">
+
+                    <label for="editBookTitle">
+                        Book Title *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editBookTitle"
+                        placeholder="Enter book title"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editBookAuthor">
+                        Author *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editBookAuthor"
+                        placeholder="Enter author name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editBookISBN">
+                        ISBN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editBookISBN"
+                        placeholder="Enter ISBN">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editBookCategory">
+                        Category *
+                    </label>
+
+                    <select
+                        id="editBookCategory"
+                        required>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Programming">
+                            Programming
+                        </option>
+
+                        <option value="Database">
+                            Database
+                        </option>
+
+                        <option value="Networking">
+                            Networking
+                        </option>
+
+                        <option value="Mathematics">
+                            Mathematics
+                        </option>
+
+                        <option value="Electronics">
+                            Electronics
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editBookCopies">
+                        Number of Copies *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="editBookCopies"
+                        min="1"
+                        required>
+
+                    <small class="cover-help">
+                        Copies cannot be less than the number currently issued.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editBookCover">
+                        Change Book Cover
+                    </label>
+
+                    <input
+                        type="file"
+                        id="editBookCover"
+                        accept="image/png, image/jpeg, image/jpg, image/webp">
+
+                    <small class="cover-help">
+                        Leave empty to keep the existing cover.
+                    </small>
+
+
+                    <div
+                        id="editCoverPreview"
+                        class="cover-preview">
+
+                        <img
+                            id="editCoverPreviewImage"
+                            src=""
+                            alt="Current book cover">
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeEditBook()">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         ADMIN PROFILE MODAL
+    =========================================== -->
+
+    <div
+        id="admin-profile-modal"
+        class="modal-overlay">
+
+        <div class="modal">
+
+            <div class="modal-header">
+
+                <h2>Admin Profile</h2>
+
+                <button
+                    type="button"
+                    class="close-modal"
+                    onclick="closeAdminProfile()">
+                    ×
+                </button>
+
+            </div>
+
+            <div style="text-align:center;">
+
+                <div
+                    style="
+                        width:80px;
+                        height:80px;
+                        border-radius:50%;
+                        background:#2563eb;
+                        color:white;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        margin:0 auto 15px;
+                        font-size:30px;
+                        font-weight:bold;
+                    ">
+
+                    A
+
+                </div>
+
+                <h3 style="margin:5px 0;">
+                    Administrator
+                </h3>
+
+                <p style="color:#64748b;">
+                    Library Administrator
+                </p>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeAdminProfile()">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <!-- <script>
+        /* ========================================
+   COLLEGE-SPECIFIC BOOK STORAGE
+======================================== */
+
+const loggedInUser =
+    JSON.parse(
+        localStorage.getItem("loggedInUser")
+    ) || {};
+
+const currentCollegeId =
+    loggedInUser.collegeId;
+
+if (!currentCollegeId) {
+
+    alert(
+        "College information not found. Please login again."
+    );
+
+    window.location.href = "index.html";
+}
+
+const BOOK_STORAGE_KEY =
+    "libraryBooks_" + currentCollegeId;
+
+        /* ========================================
+           DEFAULT BOOKS
+        ======================================== */
+
+        const defaultBooks = [
+
+            {
+                id: "BOOK001",
+
+                title: "Modern Digital Electronics",
+
+                shortTitle: "5th Edition",
+
+                author: "R. P. Jain, Kishor Sarawadekar",
+
+                isbn: "",
+
+                category: "Electronics",
+
+                copies: 1,
+
+                issued: 0,
+
+                cover: "DE book.png",
+
+                coverData: ""
+
+            },
+
+
+            {
+                id: "BOOK002",
+
+                title: "Data Structures",
+
+                shortTitle: "Schaum's Outlines",
+
+                author: "Seymour Lipschutz",
+
+                isbn: "",
+
+                category: "Computer Science",
+
+                copies: 1,
+
+                issued: 0,
+
+                cover: "DSA book.png",
+
+                coverData: ""
+
+            }
+
+        ];
+
+
+        let books = [];
+
+        let currentPage = 1;
+
+        const booksPerPage = 5;
+
+        let editingBookId = null;
+
+
+        /* ========================================
+           HTML ESCAPE
+        ======================================== */
+
+        function escapeHTML(value) {
+
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* ========================================
+           READ IMAGE AS BASE64
+        ======================================== */
+
+        function readImageAsDataURL(file) {
+
+            return new Promise(function(resolve, reject) {
+
+                if (!file) {
+
+                    resolve("");
+
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+
+                    resolve(event.target.result);
+
+                };
+
+                reader.onerror = function() {
+
+                    reject(
+                        new Error("Unable to read image.")
+                    );
+
+                };
+
+                reader.readAsDataURL(file);
+
+            });
+
+        }
+
+
+        /* ========================================
+           LOAD BOOKS
+        ======================================== */
+
+        function loadBooksFromStorage() {
+
+            const savedBooks =
+                localStorage.getItem(BOOK_STORAGE_KEY);
+
+
+            if (savedBooks) {
+
+                try {
+
+                    books = JSON.parse(savedBooks);
+
+                    if (!Array.isArray(books)) {
+
+                        books = [];
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Error loading books:",
+                        error
+                    );
+
+                    books = [];
+                }
+
+            }
+
+
+            if (!books.length) {
+
+                books = JSON.parse(
+                    JSON.stringify(defaultBooks)
+                );
+
+                saveBooks();
+
+            }
+
+
+            books = books.map(function(book) {
+
+                return {
+
+                    ...book,
+
+                    copies:
+                        Number(book.copies || 0),
+
+                    issued:
+                        Number(book.issued || 0),
+
+                    coverData:
+                        book.coverData || ""
+
+                };
+
+            });
+
+
+            loadBooks();
+
+        }
+
+
+        /* ========================================
+           SAVE BOOKS
+        ======================================== */
+
+        function saveBooks() {
+
+            localStorage.setItem(
+                BOOK_STORAGE_KEY,
+                JSON.stringify(books)
+            );
+
+        }
+
+
+        /* ========================================
+           GET BOOK COVER
+        ======================================== */
+
+        function getBookCover(book) {
+
+            if (book.coverData) {
+
+                return book.coverData;
+            }
+
+            if (book.cover) {
+
+                return book.cover;
+            }
+
+            return "";
+
+        }
+
+
+        /* ========================================
+           LOAD / RENDER BOOKS
+        ======================================== */
+
+        function loadBooks() {
+
+            const searchInput =
+                document.getElementById("bookSearch");
+
+            const categoryFilter =
+                document.getElementById("categoryFilter");
+
+            const statusFilter =
+                document.getElementById("statusFilter");
+
+
+            const search =
+                searchInput
+                    ? searchInput.value
+                        .trim()
+                        .toLowerCase()
+                    : "";
+
+
+            const category =
+                categoryFilter
+                    ? categoryFilter.value
+                    : "all";
+
+
+            const status =
+                statusFilter
+                    ? statusFilter.value
+                    : "all";
+
+
+            let filteredBooks =
+                books.filter(function(book) {
+
+                    const title =
+                        String(book.title || "")
+                            .toLowerCase();
+
+                    const author =
+                        String(book.author || "")
+                            .toLowerCase();
+
+                    const isbn =
+                        String(book.isbn || "")
+                            .toLowerCase();
+
+
+                    const matchesSearch =
+                        !search ||
+                        title.includes(search) ||
+                        author.includes(search) ||
+                        isbn.includes(search);
+
+
+                    const matchesCategory =
+                        category === "all" ||
+                        book.category === category;
+
+
+                    const available =
+                        Number(book.copies || 0) -
+                        Number(book.issued || 0);
+
+
+                    const matchesStatus =
+                        status === "all" ||
+                        (status === "available" &&
+                            available > 0) ||
+                        (status === "issued" &&
+                            Number(book.issued || 0) > 0);
+
+
+                    return (
+                        matchesSearch &&
+                        matchesCategory &&
+                        matchesStatus
+                    );
+
+                });
+
+
+            renderBooks(filteredBooks);
+
+            updateStats();
+
+        }
+
+
+        /* ========================================
+           RENDER BOOKS
+        ======================================== */
+
+        function renderBooks(filteredBooks) {
+
+            const tbody =
+                document.getElementById(
+                    "booksTableBody"
+                );
+
+            const noBooks =
+                document.getElementById("noBooks");
+
+            const paginationText =
+                document.getElementById(
+                    "paginationText"
+                );
+
+            const paginationButtons =
+                document.getElementById(
+                    "paginationButtons"
+                );
+
+
+            if (!tbody) {
+                return;
+            }
+
+
+            const totalPages =
+                Math.max(
+                    1,
+                    Math.ceil(
+                        filteredBooks.length /
+                        booksPerPage
+                    )
+                );
+
+
+            if (currentPage > totalPages) {
+
+                currentPage = totalPages;
+
+            }
+
+
+            const startIndex =
+                (currentPage - 1) *
+                booksPerPage;
+
+
+            const endIndex =
+                startIndex + booksPerPage;
+
+
+            const pageBooks =
+                filteredBooks.slice(
+                    startIndex,
+                    endIndex
+                );
+
+
+            tbody.innerHTML = "";
+
+
+            if (!pageBooks.length) {
+
+                noBooks.style.display = "block";
+
+                paginationText.textContent =
+                    "Showing 0 of 0 books";
+
+                paginationButtons.innerHTML = "";
+
+                return;
+
+            }
+
+
+            noBooks.style.display = "none";
+
+
+            pageBooks.forEach(function(book) {
+
+                const copies =
+                    Number(book.copies || 0);
+
+                const issued =
+                    Number(book.issued || 0);
+
+                const available =
+                    Math.max(
+                        0,
+                        copies - issued
+                    );
+
+
+                let statusText =
+                    "Available";
+
+                let statusClass =
+                    "available";
+
+
+                if (available <= 0) {
+
+                    statusText = "Issued";
+
+                    statusClass = "issued";
+
+                } else if (issued > 0) {
+
+                    statusText =
+                        "Partially Available";
+
+                    statusClass =
+                        "available";
+
+                }
+
+
+                const cover =
+                    getBookCover(book);
+
+
+                const coverHTML =
+                    cover
+
+                        ? `
+                            <img
+                                src="${escapeHTML(cover)}"
+                                alt="${escapeHTML(book.title)}"
+                                class="book-cover-thumb"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+
+                            <div
+                                class="no-cover"
+                                style="display:none;">
+                                📚
+                            </div>
+                        `
+
+                        : `
+                            <div class="no-cover">
+                                📚
+                            </div>
+                        `;
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+
+                        <div
+                            style="
+                                display:flex;
+                                align-items:center;
+                                gap:12px;
+                            ">
+
+                            ${coverHTML}
+
+                            <div>
+
+                                <strong>
+                                    ${escapeHTML(book.title)}
+                                </strong>
+
+                                ${
+                                    book.shortTitle
+                                        ? `
+                                            <div
+                                                style="
+                                                    font-size:12px;
+                                                    color:#64748b;
+                                                    margin-top:3px;
+                                                ">
+                                                ${escapeHTML(book.shortTitle)}
+                                            </div>
+                                        `
+                                        : ""
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(book.author)}
+                    </td>
+
+
+                    <td>
+                        ${escapeHTML(book.category)}
+                    </td>
+
+
+                    <td>
+                        ${
+                            escapeHTML(book.isbn) ||
+                            "-"
+                        }
+                    </td>
+
+
+                    <td>
+                        ${copies}
+                    </td>
+
+
+                    <td>
+                        ${available}
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="status-badge ${statusClass}">
+
+                            ${statusText}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <div class="action-buttons">
+
+                            <button
+                                type="button"
+                                class="edit-btn"
+                                onclick="editBook('${book.id}')">
+
+                                ✏️ Edit
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="delete-btn"
+                                onclick="deleteBook('${book.id}')">
+
+                                🗑️ Delete
+
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+
+                tbody.appendChild(row);
+
+            });
+
+
+            const showingStart =
+                filteredBooks.length
+                    ? startIndex + 1
+                    : 0;
+
+
+            const showingEnd =
+                Math.min(
+                    endIndex,
+                    filteredBooks.length
+                );
+
+
+            paginationText.textContent =
+                `Showing ${showingStart}-${showingEnd} of ${filteredBooks.length} books`;
+
+
+            renderPagination(
+                totalPages
+            );
+
+        }
+
+
+        /* ========================================
+           PAGINATION
+        ======================================== */
+
+        function renderPagination(totalPages) {
+
+            const container =
+                document.getElementById(
+                    "paginationButtons"
+                );
+
+
+            container.innerHTML = "";
+
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+
+            const previousButton =
+                document.createElement("button");
+
+            previousButton.type = "button";
+
+            previousButton.textContent = "‹";
+
+            previousButton.disabled =
+                currentPage === 1;
+
+
+            previousButton.onclick =
+                function() {
+
+                    if (currentPage > 1) {
+
+                        currentPage--;
+
+                        loadBooks();
+
+                    }
+
+                };
+
+
+            container.appendChild(
+                previousButton
+            );
+
+
+            for (
+                let page = 1;
+                page <= totalPages;
+                page++
+            ) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type = "button";
+
+                button.textContent = page;
+
+
+                if (page === currentPage) {
+
+                    button.classList.add(
+                        "active"
+                    );
+
+                }
+
+
+                button.onclick =
+                    function() {
+
+                        currentPage = page;
+
+                        loadBooks();
+
+                    };
+
+
+                container.appendChild(
+                    button
+                );
+
+            }
+
+
+            const nextButton =
+                document.createElement("button");
+
+
+            nextButton.type = "button";
+
+            nextButton.textContent = "›";
+
+            nextButton.disabled =
+                currentPage === totalPages;
+
+
+            nextButton.onclick =
+                function() {
+
+                    if (
+                        currentPage <
+                        totalPages
+                    ) {
+
+                        currentPage++;
+
+                        loadBooks();
+
+                    }
+
+                };
+
+
+            container.appendChild(
+                nextButton
+            );
+
+        }
+
+
+        /* ========================================
+           UPDATE STATS
+        ======================================== */
+
+        function updateStats() {
+
+            const totalBooksElement =
+                document.getElementById(
+                    "totalBooks"
+                );
+
+            const availableBooksElement =
+                document.getElementById(
+                    "availableBooks"
+                );
+
+            const issuedBooksElement =
+                document.getElementById(
+                    "issuedBooks"
+                );
+
+            const totalCategoriesElement =
+                document.getElementById(
+                    "totalCategories"
+                );
+
+
+            let totalCopies = 0;
+
+            let totalAvailable = 0;
+
+            let totalIssued = 0;
+
+
+            books.forEach(function(book) {
+
+                const copies =
+                    Number(book.copies || 0);
+
+                const issued =
+                    Number(book.issued || 0);
+
+
+                totalCopies += copies;
+
+                totalIssued += issued;
+
+                totalAvailable +=
+                    Math.max(
+                        0,
+                        copies - issued
+                    );
+
+            });
+
+
+            const categories =
+                new Set(
+                    books
+                        .map(function(book) {
+                            return book.category;
+                        })
+                        .filter(Boolean)
+                );
+
+
+            totalBooksElement.textContent =
+                totalCopies;
+
+
+            availableBooksElement.textContent =
+                totalAvailable;
+
+
+            issuedBooksElement.textContent =
+                totalIssued;
+
+
+            totalCategoriesElement.textContent =
+                categories.size;
+
+        }
+
+
+        /* ========================================
+           OPEN ADD BOOK MODAL
+        ======================================== */
+
+        function openAddBook() {
+
+            const modal =
+                document.getElementById(
+                    "add-book-modal"
+                );
+
+
+            const form =
+                document.getElementById(
+                    "addBookForm"
+                );
+
+
+            form.reset();
+
+
+            document.getElementById(
+                "newBookCopies"
+            ).value = 1;
+
+
+            document.getElementById(
+                "coverPreview"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "coverPreviewImage"
+            ).src = "";
+
+
+            modal.style.display = "flex";
+
+        }
+
+
+        /* ========================================
+           CLOSE ADD BOOK MODAL
+        ======================================== */
+
+        function closeAddBook() {
+
+            const modal =
+                document.getElementById(
+                    "add-book-modal"
+                );
+
+
+            modal.style.display = "none";
+
+        }
+
+
+        /* ========================================
+           ADD BOOK FORM
+        ======================================== */
+
+        document.getElementById(
+            "addBookForm"
+        ).addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const title =
+                    document.getElementById(
+                        "newBookTitle"
+                    )
+                    .value
+                    .trim();
+
+
+                const author =
+                    document.getElementById(
+                        "newBookAuthor"
+                    )
+                    .value
+                    .trim();
+
+
+                const isbn =
+                    document.getElementById(
+                        "newBookISBN"
+                    )
+                    .value
+                    .trim();
+
+
+                const category =
+                    document.getElementById(
+                        "newBookCategory"
+                    )
+                    .value;
+
+
+                const copies =
+                    Number(
+                        document.getElementById(
+                            "newBookCopies"
+                        ).value
+                    );
+
+
+                const coverInput =
+                    document.getElementById(
+                        "newBookCover"
+                    );
+
+
+                if (!title || !author) {
+
+                    alert(
+                        "Please enter book title and author."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !category
+                ) {
+
+                    alert(
+                        "Please select a category."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !Number.isInteger(copies) ||
+                    copies < 1
+                ) {
+
+                    alert(
+                        "Number of copies must be at least 1."
+                    );
+
+                    return;
+
+                }
+
+
+                let coverData = "";
+
+
+                if (
+                    coverInput.files &&
+                    coverInput.files.length
+                ) {
+
+                    const file =
+                        coverInput.files[0];
+
+
+                    const allowedTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/webp"
+                    ];
+
+
+                    if (
+                        !allowedTypes.includes(
+                            file.type
+                        )
+                    ) {
+
+                        alert(
+                            "Please select a JPG, PNG or WebP image."
+                        );
+
+                        return;
+
+                    }
+
+
+                    try {
+
+                        coverData =
+                            await readImageAsDataURL(
+                                file
+                            );
+
+                    } catch (error) {
+
+                        alert(
+                            "Unable to read the selected image."
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                const newBook = {
+
+                    id:
+                        "BOOK" +
+                        Date.now(),
+
+                    title: title,
+
+                    shortTitle: "",
+
+                    author: author,
+
+                    isbn: isbn,
+
+                    category: category,
+
+                    copies: copies,
+
+                    issued: 0,
+
+                    cover: "",
+
+                    coverData: coverData
+
+                };
+
+
+                books.push(newBook);
+
+                saveBooks();
+
+                currentPage = 1;
+
+                loadBooks();
+
+                closeAddBook();
+
+
+                alert(
+                    "Book added successfully."
+                );
+
+            }
+        );
+
+
+        /* ========================================
+           ADD BOOK COVER PREVIEW
+        ======================================== */
+
+        document.getElementById(
+            "newBookCover"
+        ).addEventListener(
+            "change",
+            function(event) {
+
+                const file =
+                    event.target.files[0];
+
+
+                const preview =
+                    document.getElementById(
+                        "coverPreview"
+                    );
+
+
+                const image =
+                    document.getElementById(
+                        "coverPreviewImage"
+                    );
+
+
+                if (!file) {
+
+                    preview.style.display =
+                        "none";
+
+                    image.src = "";
+
+                    return;
+
+                }
+
+
+                const allowedTypes = [
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp"
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    alert(
+                        "Please select a JPG, PNG or WebP image."
+                    );
+
+
+                    event.target.value = "";
+
+                    preview.style.display =
+                        "none";
+
+                    image.src = "";
+
+                    return;
+
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function(e) {
+
+                        image.src =
+                            e.target.result;
+
+                        preview.style.display =
+                            "flex";
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+
+        /* ========================================
+           EDIT BOOK
+        ======================================== */
+
+        function editBook(bookId) {
+
+            const book =
+                books.find(function(item) {
+
+                    return item.id === bookId;
+
+                });
+
+
+            if (!book) {
+
+                alert(
+                    "Book not found."
+                );
+
+                return;
+
+            }
+
+
+            editingBookId = bookId;
+
+
+            document.getElementById(
+                "editBookId"
+            ).value = book.id;
+
+
+            document.getElementById(
+                "editBookTitle"
+            ).value =
+                book.title || "";
+
+
+            document.getElementById(
+                "editBookAuthor"
+            ).value =
+                book.author || "";
+
+
+            document.getElementById(
+                "editBookISBN"
+            ).value =
+                book.isbn || "";
+
+
+            document.getElementById(
+                "editBookCategory"
+            ).value =
+                book.category || "";
+
+
+            document.getElementById(
+                "editBookCopies"
+            ).value =
+                Number(book.copies || 1);
+
+
+            document.getElementById(
+                "editBookCover"
+            ).value = "";
+
+
+            const preview =
+                document.getElementById(
+                    "editCoverPreview"
+                );
+
+
+            const previewImage =
+                document.getElementById(
+                    "editCoverPreviewImage"
+                );
+
+
+            const cover =
+                getBookCover(book);
+
+
+            if (cover) {
+
+                previewImage.src = cover;
+
+                preview.style.display =
+                    "flex";
+
+            } else {
+
+                previewImage.src = "";
+
+                preview.style.display =
+                    "none";
+
+            }
+
+
+            document.getElementById(
+                "edit-book-modal"
+            ).style.display = "flex";
+
+        }
+
+
+        /* ========================================
+           CLOSE EDIT BOOK
+        ======================================== */
+
+        function closeEditBook() {
+
+            const modal =
+                document.getElementById(
+                    "edit-book-modal"
+                );
+
+
+            const form =
+                document.getElementById(
+                    "editBookForm"
+                );
+
+
+            form.reset();
+
+
+            document.getElementById(
+                "editCoverPreview"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "editCoverPreviewImage"
+            ).src = "";
+
+
+            editingBookId = null;
+
+
+            modal.style.display = "none";
+
+        }
+
+
+        /* ========================================
+           EDIT COVER PREVIEW
+        ======================================== */
+
+        document.getElementById(
+            "editBookCover"
+        ).addEventListener(
+            "change",
+            function(event) {
+
+                const file =
+                    event.target.files[0];
+
+
+                const preview =
+                    document.getElementById(
+                        "editCoverPreview"
+                    );
+
+
+                const image =
+                    document.getElementById(
+                        "editCoverPreviewImage"
+                    );
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                const allowedTypes = [
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp"
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    alert(
+                        "Please select a JPG, PNG or WebP image."
+                    );
+
+
+                    event.target.value = "";
+
+                    return;
+
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function(e) {
+
+                        image.src =
+                            e.target.result;
+
+                        preview.style.display =
+                            "flex";
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+            }
+        );
+
+
+        /* ========================================
+           EDIT BOOK FORM SUBMIT
+        ======================================== */
+
+        document.getElementById(
+            "editBookForm"
+        ).addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                if (!editingBookId) {
+
+                    alert(
+                        "No book selected for editing."
+                    );
+
+                    return;
+
+                }
+
+
+                const book =
+                    books.find(function(item) {
+
+                        return (
+                            item.id ===
+                            editingBookId
+                        );
+
+                    });
+
+
+                if (!book) {
+
+                    alert(
+                        "Book not found."
+                    );
+
+                    return;
+
+                }
+
+
+                const title =
+                    document.getElementById(
+                        "editBookTitle"
+                    )
+                    .value
+                    .trim();
+
+
+                const author =
+                    document.getElementById(
+                        "editBookAuthor"
+                    )
+                    .value
+                    .trim();
+
+
+                const isbn =
+                    document.getElementById(
+                        "editBookISBN"
+                    )
+                    .value
+                    .trim();
+
+
+                const category =
+                    document.getElementById(
+                        "editBookCategory"
+                    )
+                    .value;
+
+
+                const copies =
+                    Number(
+                        document.getElementById(
+                            "editBookCopies"
+                        ).value
+                    );
+
+
+                const issued =
+                    Number(
+                        book.issued || 0
+                    );
+
+
+                if (!title || !author) {
+
+                    alert(
+                        "Please enter book title and author."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!category) {
+
+                    alert(
+                        "Please select a category."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !Number.isInteger(copies) ||
+                    copies < 1
+                ) {
+
+                    alert(
+                        "Number of copies must be at least 1."
+                    );
+
+                    return;
+
+                }
+
+
+                if (copies < issued) {
+
+                    alert(
+                        `Copies cannot be less than currently issued copies (${issued}).`
+                    );
+
+                    return;
+
+                }
+
+
+                const coverInput =
+                    document.getElementById(
+                        "editBookCover"
+                    );
+
+
+                let newCoverData = "";
+
+
+                if (
+                    coverInput.files &&
+                    coverInput.files.length
+                ) {
+
+                    const file =
+                        coverInput.files[0];
+
+
+                    const allowedTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/webp"
+                    ];
+
+
+                    if (
+                        !allowedTypes.includes(
+                            file.type
+                        )
+                    ) {
+
+                        alert(
+                            "Please select a JPG, PNG or WebP image."
+                        );
+
+                        return;
+
+                    }
+
+
+                    try {
+
+                        newCoverData =
+                            await readImageAsDataURL(
+                                file
+                            );
+
+                    } catch (error) {
+
+                        alert(
+                            "Unable to read the selected image."
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                /* UPDATE BOOK */
+
+                book.title =
+                    title;
+
+
+                book.author =
+                    author;
+
+
+                book.isbn =
+                    isbn;
+
+
+                book.category =
+                    category;
+
+
+                book.copies =
+                    copies;
+
+
+                /*
+                   If a new cover was selected,
+                   replace the old cover.
+                */
+
+                if (newCoverData) {
+
+                    book.coverData =
+                        newCoverData;
+
+                    book.cover = "";
+
+                }
+
+
+                saveBooks();
+
+                loadBooks();
+
+                closeEditBook();
+
+
+                alert(
+                    "Book updated successfully."
+                );
+
+            }
+        );
+
+
+        /* ========================================
+           DELETE BOOK
+        ======================================== */
+
+        function deleteBook(bookId) {
+
+            const book =
+                books.find(function(item) {
+
+                    return item.id === bookId;
+
+                });
+
+
+            if (!book) {
+
+                alert(
+                    "Book not found."
+                );
+
+                return;
+
+            }
+
+
+            const issued =
+                Number(book.issued || 0);
+
+
+            if (issued > 0) {
+
+                alert(
+                    "This book is currently issued and cannot be deleted."
+                );
+
+                return;
+
+            }
+
+
+            const confirmDelete =
+                confirm(
+                    `Delete "${book.title}"?`
+                );
+
+
+            if (!confirmDelete) {
+
+                return;
+
+            }
+
+
+            books =
+                books.filter(function(item) {
+
+                    return item.id !== bookId;
+
+                });
+
+
+            saveBooks();
+
+
+            currentPage = 1;
+
+
+            loadBooks();
+
+
+            alert(
+                "Book deleted successfully."
+            );
+
+        }
+
+
+        /* ========================================
+           SEARCH
+        ======================================== */
+
+        document.getElementById(
+            "bookSearch"
+        ).addEventListener(
+            "input",
+            function() {
+
+                currentPage = 1;
+
+                loadBooks();
+
+            }
+        );
+
+
+        /* ========================================
+           CATEGORY FILTER
+        ======================================== */
+
+        document.getElementById(
+            "categoryFilter"
+        ).addEventListener(
+            "change",
+            function() {
+
+                currentPage = 1;
+
+                loadBooks();
+
+            }
+        );
+
+
+        /* ========================================
+           STATUS FILTER
+        ======================================== */
+
+        document.getElementById(
+            "statusFilter"
+        ).addEventListener(
+            "change",
+            function() {
+
+                currentPage = 1;
+
+                loadBooks();
+
+            }
+        );
+
+
+        /* ========================================
+           ADD BUTTON
+        ======================================== */
+
+        document.getElementById(
+            "addBookBtn"
+        ).addEventListener(
+            "click",
+            openAddBook
+        );
+
+
+        /* ========================================
+           MOBILE SIDEBAR
+        ======================================== */
+
+        const mobileMenuBtn =
+            document.getElementById(
+                "mobileMenuBtn"
+            );
+
+
+        const sidebar =
+            document.getElementById(
+                "sidebar"
+            );
+
+
+        if (mobileMenuBtn) {
+
+            mobileMenuBtn.addEventListener(
+                "click",
+                function() {
+
+                    sidebar.classList.toggle(
+                        "open"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ========================================
+           CLOSE SIDEBAR AFTER LINK CLICK
+        ======================================== */
+
+        document
+            .querySelectorAll(".nav-link")
+            .forEach(function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function() {
+
+                        if (window.innerWidth <= 900) {
+
+                            sidebar.classList.remove(
+                                "open"
+                            );
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* ========================================
+           ADMIN PROFILE
+        ======================================== */
+
+        function openAdminProfile(event) {
+
+            if (event) {
+
+                event.preventDefault();
+
+            }
+
+
+            document.getElementById(
+                "admin-profile-modal"
+            ).style.display = "flex";
+
+        }
+
+
+        function closeAdminProfile() {
+
+            document.getElementById(
+                "admin-profile-modal"
+            ).style.display = "none";
+
+        }
+
+
+        /* ========================================
+           CLOSE MODALS WHEN CLICKING OUTSIDE
+        ======================================== */
+
+        document
+            .getElementById("add-book-modal")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeAddBook();
+
+                    }
+
+                }
+            );
+
+
+        document
+            .getElementById("edit-book-modal")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeEditBook();
+
+                    }
+
+                }
+            );
+
+
+        document
+            .getElementById("admin-profile-modal")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target === this
+                    ) {
+
+                        closeAdminProfile();
+
+                    }
+
+                }
+            );
+
+
+        /* ========================================
+           ESC KEY CLOSE MODALS
+        ======================================== */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Escape") {
+
+                    closeAddBook();
+
+                    closeEditBook();
+
+                    closeAdminProfile();
+
+                }
+
+            }
+        );
+
+
+        /* ========================================
+           INITIALIZE
+        ======================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                loadBooksFromStorage();
+
+            }
+        );
+        /* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+function openNotifications() {
+    alert("No new notifications.");
+}
+
+
+/* =========================================================
+   ADMIN PROFILE MENU
+   ========================================================= */
+
+function toggleProfileMenu(event) {
+    if (event) {
+        event.stopPropagation();
+    }
+
+    const menu = document.getElementById("admin-profile-menu");
+
+    if (!menu) {
+        console.error("admin-profile-menu not found");
+        return;
+    }
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+
+
+/* =========================================================
+   OLD FUNCTION SUPPORT
+   ========================================================= */
+
+function toggleAdminMenu(event) {
+    toggleProfileMenu(event);
+}
+
+
+/* =========================================================
+   CLOSE PROFILE MENU WHEN CLICKING OUTSIDE
+   ========================================================= */
+
+document.addEventListener("click", function (event) {
+
+    const menu = document.getElementById("admin-profile-menu");
+
+    if (!menu) return;
+
+    const profileButton = document.querySelector(".admin-profile");
+
+    if (
+        menu.style.display === "block" &&
+        !menu.contains(event.target) &&
+        (!profileButton || !profileButton.contains(event.target))
+    ) {
+        menu.style.display = "none";
+    }
+});
+
+    </script> -->
+
+
+<script>
+/* =========================================================
+   ADMIN BOOK MANAGEMENT - BACKEND / MONGODB VERSION
+   ========================================================= */
+
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
+const API_BASE_URL =
+    "http://127.0.0.1:5000";
+
+const ADMIN_BOOKS_API =
+    API_BASE_URL + "/api/admin/books";
+
+const adminToken =
+    localStorage.getItem("adminToken");
+
+
+/* =========================================================
+   AUTHENTICATION CHECK
+   ========================================================= */
+
+if (!adminToken) {
+
+    alert(
+        "Admin session not found. Please login again."
+    );
+
+    window.location.href = "index.html";
+
+}
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let books = [];
+
+let currentPage = 1;
+
+const booksPerPage = 5;
+
+let editingBookId = null;
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   AUTH HEADERS
+   ========================================================= */
+
+function getAuthHeaders() {
+
+    return {
+
+        "Authorization":
+            `Bearer ${adminToken}`,
+
+        "Content-Type":
+            "application/json"
+
+    };
+
+}
+
+
+/* =========================================================
+   HANDLE AUTH ERROR
+   ========================================================= */
+
+function handleAuthError(response) {
+
+    if (
+        response.status === 401 ||
+        response.status === 403
+    ) {
+
+        localStorage.removeItem("adminToken");
+
+        alert(
+            "Your admin session has expired. Please login again."
+        );
+
+        window.location.href = "index.html";
+
+        return true;
+
+    }
+
+    return false;
+
+}
+
+
+/* =========================================================
+   READ IMAGE AS BASE64
+   ONLY FOR FRONTEND PREVIEW
+   ========================================================= */
+
+function readImageAsDataURL(file) {
+
+    return new Promise(function(resolve, reject) {
+
+        if (!file) {
+
+            resolve("");
+
+            return;
+
+        }
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(event) {
+
+                resolve(
+                    event.target.result
+                );
+
+            };
+
+        reader.onerror =
+            function() {
+
+                reject(
+                    new Error(
+                        "Unable to read image."
+                    )
+                );
+
+            };
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+/* =========================================================
+   GET BOOK COVER
+   ========================================================= */
+
+function getBookCover(book) {
+
+    /*
+       Backend Book model currently does not
+       contain a cover field.
+
+       Therefore this function only supports
+       a temporary frontend cover if available.
+    */
+
+    if (
+        book &&
+        book.coverData
+    ) {
+
+        return book.coverData;
+
+    }
+
+    if (
+        book &&
+        book.cover
+    ) {
+
+        return book.cover;
+
+    }
+
+    return "";
+
+}
+
+
+/* =========================================================
+   MAP BACKEND BOOK TO FRONTEND FORMAT
+   ========================================================= */
+
+function mapBackendBook(book) {
+
+    const totalCopies =
+        Number(
+            book.totalCopies || 0
+        );
+
+    const availableCopies =
+        Number(
+            book.availableCopies || 0
+        );
+
+    const issuedCopies =
+        Math.max(
+            0,
+            totalCopies -
+            availableCopies
+        );
+
+    return {
+
+        id:
+            book.bookId,
+
+        bookId:
+            book.bookId,
+
+        title:
+            book.title || "",
+
+        shortTitle:
+            "",
+
+        author:
+            book.author || "",
+
+        isbn:
+            book.isbn || "",
+
+        publisher:
+            book.publisher || "",
+
+        category:
+            book.category || "General",
+
+        copies:
+            totalCopies,
+
+        totalCopies:
+            totalCopies,
+
+        availableCopies:
+            availableCopies,
+
+        issued:
+            issuedCopies,
+
+        status:
+            book.status || "Available",
+
+        cover:
+            book.cover || "",
+
+        coverData:
+            book.coverData || ""
+
+    };
+
+}
+
+
+/* =========================================================
+   LOAD BOOKS FROM MONGODB
+   ========================================================= */
+
+async function loadBooksFromBackend() {
+
+    try {
+
+        const response =
+            await fetch(
+                ADMIN_BOOKS_API,
+                {
+
+                    method:
+                        "GET",
+
+                    headers:
+                        getAuthHeaders()
+
+                }
+            );
+
+
+        if (
+            handleAuthError(response)
+        ) {
+            return;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Admin books response:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            alert(
+                data.message ||
+                "Unable to load books."
+            );
+
+            return;
+
+        }
+
+
+        books =
+            Array.isArray(data.books)
+                ? data.books.map(
+                    mapBackendBook
+                )
+                : [];
+
+
+        currentPage = 1;
+
+        loadBooks();
+
+
+    } catch (error) {
+
+        console.error(
+            "Load books error:",
+            error
+        );
+
+        alert(
+            "Unable to connect to the backend."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD / FILTER BOOKS
+   ========================================================= */
+
+function loadBooks() {
+
+    const searchInput =
+        document.getElementById(
+            "bookSearch"
+        );
+
+    const categoryFilter =
+        document.getElementById(
+            "categoryFilter"
+        );
+
+    const statusFilter =
+        document.getElementById(
+            "statusFilter"
+        );
+
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+
+    const category =
+        categoryFilter
+            ? categoryFilter.value
+            : "all";
+
+
+    const status =
+        statusFilter
+            ? statusFilter.value
+            : "all";
+
+
+    const filteredBooks =
+        books.filter(
+            function(book) {
+
+                const title =
+                    String(
+                        book.title || ""
+                    )
+                    .toLowerCase();
+
+
+                const author =
+                    String(
+                        book.author || ""
+                    )
+                    .toLowerCase();
+
+
+                const isbn =
+                    String(
+                        book.isbn || ""
+                    )
+                    .toLowerCase();
+
+
+                const matchesSearch =
+                    !search ||
+                    title.includes(search) ||
+                    author.includes(search) ||
+                    isbn.includes(search);
+
+
+                const matchesCategory =
+                    category === "all" ||
+                    book.category === category;
+
+
+                const available =
+                    Number(
+                        book.availableCopies || 0
+                    );
+
+
+                const issued =
+                    Number(
+                        book.issued || 0
+                    );
+
+
+                const matchesStatus =
+                    status === "all" ||
+
+                    (
+                        status === "available" &&
+                        available > 0
+                    ) ||
+
+                    (
+                        status === "issued" &&
+                        issued > 0
+                    );
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory &&
+                    matchesStatus
+                );
+
+            }
+        );
+
+
+    renderBooks(
+        filteredBooks
+    );
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   RENDER BOOKS
+   ========================================================= */
+
+function renderBooks(filteredBooks) {
+
+    const tbody =
+        document.getElementById(
+            "booksTableBody"
+        );
+
+    const noBooks =
+        document.getElementById(
+            "noBooks"
+        );
+
+    const paginationText =
+        document.getElementById(
+            "paginationText"
+        );
+
+    const paginationButtons =
+        document.getElementById(
+            "paginationButtons"
+        );
+
+
+    if (!tbody) {
+        return;
+    }
+
+
+    const totalPages =
+        Math.max(
+            1,
+            Math.ceil(
+                filteredBooks.length /
+                booksPerPage
+            )
+        );
+
+
+    if (
+        currentPage >
+        totalPages
+    ) {
+
+        currentPage =
+            totalPages;
+
+    }
+
+
+    const startIndex =
+        (
+            currentPage - 1
+        ) *
+        booksPerPage;
+
+
+    const endIndex =
+        startIndex +
+        booksPerPage;
+
+
+    const pageBooks =
+        filteredBooks.slice(
+            startIndex,
+            endIndex
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if (
+        !pageBooks.length
+    ) {
+
+        if (noBooks) {
+
+            noBooks.style.display =
+                "block";
+
+        }
+
+
+        if (paginationText) {
+
+            paginationText.textContent =
+                "Showing 0 of 0 books";
+
+        }
+
+
+        if (paginationButtons) {
+
+            paginationButtons.innerHTML =
+                "";
+
+        }
+
+
+        return;
+
+    }
+
+
+    if (noBooks) {
+
+        noBooks.style.display =
+            "none";
+
+    }
+
+
+    pageBooks.forEach(
+        function(book) {
+
+            const copies =
+                Number(
+                    book.totalCopies || 0
+                );
+
+
+            const available =
+                Number(
+                    book.availableCopies || 0
+                );
+
+
+            const issued =
+                Math.max(
+                    0,
+                    copies -
+                    available
+                );
+
+
+            let statusText =
+                "Available";
+
+
+            let statusClass =
+                "available";
+
+
+            if (
+                available <= 0
+            ) {
+
+                statusText =
+                    "Issued";
+
+                statusClass =
+                    "issued";
+
+            } else if (
+                issued > 0
+            ) {
+
+                statusText =
+                    "Partially Available";
+
+                statusClass =
+                    "available";
+
+            }
+
+
+            const cover =
+                getBookCover(book);
+
+
+            const coverHTML =
+                cover
+
+                    ? `
+                        <img
+                            src="${escapeHTML(cover)}"
+                            alt="${escapeHTML(book.title)}"
+                            class="book-cover-thumb"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        >
+
+                        <div
+                            class="no-cover"
+                            style="display:none;">
+                            📚
+                        </div>
+                    `
+
+                    : `
+                        <div class="no-cover">
+                            📚
+                        </div>
+                    `;
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+
+                    <div
+                        style="
+                            display:flex;
+                            align-items:center;
+                            gap:12px;
+                        "
+                    >
+
+                        ${coverHTML}
+
+                        <div>
+
+                            <strong>
+                                ${escapeHTML(
+                                    book.title
+                                )}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+                    ${escapeHTML(
+                        book.author
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHTML(
+                        book.category
+                    )}
+                </td>
+
+
+                <td>
+                    ${
+                        escapeHTML(
+                            book.isbn
+                        ) || "-"
+                    }
+                </td>
+
+
+                <td>
+                    ${copies}
+                </td>
+
+
+                <td>
+                    ${available}
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status-badge ${statusClass}"
+                    >
+                        ${statusText}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            onclick="editBook('${escapeHTML(
+                                book.id
+                            )}')"
+                        >
+                            ✏️ Edit
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="delete-btn"
+                            onclick="deleteBook('${escapeHTML(
+                                book.id
+                            )}')"
+                        >
+                            🗑️ Delete
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            tbody.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    const showingStart =
+        filteredBooks.length
+            ? startIndex + 1
+            : 0;
+
+
+    const showingEnd =
+        Math.min(
+            endIndex,
+            filteredBooks.length
+        );
+
+
+    if (paginationText) {
+
+        paginationText.textContent =
+            `Showing ${showingStart}-${showingEnd} of ${filteredBooks.length} books`;
+
+    }
+
+
+    renderPagination(
+        totalPages
+    );
+
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+function renderPagination(
+    totalPages
+) {
+
+    const container =
+        document.getElementById(
+            "paginationButtons"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    if (
+        totalPages <= 1
+    ) {
+
+        return;
+
+    }
+
+
+    const previousButton =
+        document.createElement(
+            "button"
+        );
+
+
+    previousButton.type =
+        "button";
+
+
+    previousButton.textContent =
+        "‹";
+
+
+    previousButton.disabled =
+        currentPage === 1;
+
+
+    previousButton.onclick =
+        function() {
+
+            if (
+                currentPage > 1
+            ) {
+
+                currentPage--;
+
+                loadBooks();
+
+            }
+
+        };
+
+
+    container.appendChild(
+        previousButton
+    );
+
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.type =
+            "button";
+
+
+        button.textContent =
+            page;
+
+
+        if (
+            page === currentPage
+        ) {
+
+            button.classList.add(
+                "active"
+            );
+
+        }
+
+
+        button.onclick =
+            function() {
+
+                currentPage =
+                    page;
+
+                loadBooks();
+
+            };
+
+
+        container.appendChild(
+            button
+        );
+
+    }
+
+
+    const nextButton =
+        document.createElement(
+            "button"
+        );
+
+
+    nextButton.type =
+        "button";
+
+
+    nextButton.textContent =
+        "›";
+
+
+    nextButton.disabled =
+        currentPage === totalPages;
+
+
+    nextButton.onclick =
+        function() {
+
+            if (
+                currentPage <
+                totalPages
+            ) {
+
+                currentPage++;
+
+                loadBooks();
+
+            }
+
+        };
+
+
+    container.appendChild(
+        nextButton
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE STATS
+   ========================================================= */
+
+function updateStats() {
+
+    const totalBooksElement =
+        document.getElementById(
+            "totalBooks"
+        );
+
+    const availableBooksElement =
+        document.getElementById(
+            "availableBooks"
+        );
+
+    const issuedBooksElement =
+        document.getElementById(
+            "issuedBooks"
+        );
+
+    const totalCategoriesElement =
+        document.getElementById(
+            "totalCategories"
+        );
+
+
+    let totalCopies =
+        0;
+
+    let totalAvailable =
+        0;
+
+    let totalIssued =
+        0;
+
+
+    books.forEach(
+        function(book) {
+
+            const copies =
+                Number(
+                    book.totalCopies || 0
+                );
+
+
+            const available =
+                Number(
+                    book.availableCopies || 0
+                );
+
+
+            const issued =
+                Math.max(
+                    0,
+                    copies -
+                    available
+                );
+
+
+            totalCopies +=
+                copies;
+
+
+            totalAvailable +=
+                available;
+
+
+            totalIssued +=
+                issued;
+
+        }
+    );
+
+
+    const categories =
+        new Set(
+            books
+                .map(
+                    function(book) {
+                        return book.category;
+                    }
+                )
+                .filter(Boolean)
+        );
+
+
+    if (totalBooksElement) {
+
+        totalBooksElement.textContent =
+            totalCopies;
+
+    }
+
+
+    if (availableBooksElement) {
+
+        availableBooksElement.textContent =
+            totalAvailable;
+
+    }
+
+
+    if (issuedBooksElement) {
+
+        issuedBooksElement.textContent =
+            totalIssued;
+
+    }
+
+
+    if (totalCategoriesElement) {
+
+        totalCategoriesElement.textContent =
+            categories.size;
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN ADD BOOK MODAL
+   ========================================================= */
+
+function openAddBook() {
+
+    const modal =
+        document.getElementById(
+            "add-book-modal"
+        );
+
+
+    const form =
+        document.getElementById(
+            "addBookForm"
+        );
+
+
+    if (!modal || !form) {
+        return;
+    }
+
+
+    form.reset();
+
+
+    const copiesInput =
+        document.getElementById(
+            "newBookCopies"
+        );
+
+
+    if (copiesInput) {
+
+        copiesInput.value =
+            1;
+
+    }
+
+
+    const preview =
+        document.getElementById(
+            "coverPreview"
+        );
+
+
+    const previewImage =
+        document.getElementById(
+            "coverPreviewImage"
+        );
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    if (previewImage) {
+
+        previewImage.src =
+            "";
+
+    }
+
+
+    modal.style.display =
+        "flex";
+
+}
+
+
+/* =========================================================
+   CLOSE ADD BOOK MODAL
+   ========================================================= */
+
+function closeAddBook() {
+
+    const modal =
+        document.getElementById(
+            "add-book-modal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   ADD BOOK
+   ========================================================= */
+
+const addBookForm =
+    document.getElementById(
+        "addBookForm"
+    );
+
+
+if (addBookForm) {
+
+    addBookForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const title =
+                document.getElementById(
+                    "newBookTitle"
+                )
+                .value
+                .trim();
+
+
+            const author =
+                document.getElementById(
+                    "newBookAuthor"
+                )
+                .value
+                .trim();
+
+
+            const isbn =
+                document.getElementById(
+                    "newBookISBN"
+                )
+                .value
+                .trim();
+
+
+            const category =
+                document.getElementById(
+                    "newBookCategory"
+                )
+                .value
+                .trim();
+
+
+            const copies =
+                Number(
+                    document.getElementById(
+                        "newBookCopies"
+                    ).value
+                );
+
+
+            const coverInput =
+                document.getElementById(
+                    "newBookCover"
+                );
+                const coverData =
+    await readImageAsDataURL(
+        coverInput &&
+        coverInput.files &&
+        coverInput.files.length
+            ? coverInput.files[0]
+            : null
+    );
+
+
+            if (
+                !title ||
+                !author
+            ) {
+
+                alert(
+                    "Please enter book title and author."
+                );
+
+                return;
+
+            }
+
+
+            if (!category) {
+
+                alert(
+                    "Please select a category."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !Number.isInteger(copies) ||
+                copies < 1
+            ) {
+
+                alert(
+                    "Number of copies must be at least 1."
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               COVER VALIDATION
+               --------------------------------------------- */
+
+            if (
+                coverInput &&
+                coverInput.files &&
+                coverInput.files.length
+            ) {
+
+                const file =
+                    coverInput.files[0];
+
+
+                const allowedTypes = [
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp"
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    alert(
+                        "Please select a JPG, PNG or WebP image."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            /* ---------------------------------------------
+               SEND BOOK TO BACKEND
+               --------------------------------------------- */
+
+            try {
+
+                const response =
+                    await fetch(
+                        ADMIN_BOOKS_API,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers:
+                                getAuthHeaders(),
+
+                           body:
+    JSON.stringify({
+
+        title:
+            title,
+
+        author:
+            author,
+
+        category:
+            category,
+
+        isbn:
+            isbn || "",
+
+        publisher:
+            "",
+
+        totalCopies:
+            copies,
+
+        // coverData:
+        //     await readImageAsDataURL(
+        //         coverInput &&
+        //         coverInput.files &&
+        //         coverInput.files.length
+        //             ? coverInput.files[0]
+        //             : null
+        //     )
+
+        coverData:
+    coverData
+
+    })
+
+                        }
+                    );
+
+
+                if (
+                    handleAuthError(response)
+                ) {
+                    return;
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Add book response:",
+                    data
+                );
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    alert(
+                        data.message ||
+                        "Failed to add book."
+                    );
+
+                    return;
+
+                }
+
+
+                closeAddBook();
+
+
+                currentPage =
+                    1;
+
+
+                await loadBooksFromBackend();
+
+
+                alert(
+                    "Book added successfully."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Add book error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to the backend."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ADD BOOK COVER PREVIEW
+   ========================================================= */
+
+const newBookCover =
+    document.getElementById(
+        "newBookCover"
+    );
+
+
+if (newBookCover) {
+
+    newBookCover.addEventListener(
+        "change",
+        function(event) {
+
+            const file =
+                event.target.files[0];
+
+
+            const preview =
+                document.getElementById(
+                    "coverPreview"
+                );
+
+
+            const image =
+                document.getElementById(
+                    "coverPreviewImage"
+                );
+
+
+            if (!file) {
+
+                if (preview) {
+
+                    preview.style.display =
+                        "none";
+
+                }
+
+                if (image) {
+
+                    image.src =
+                        "";
+
+                }
+
+                return;
+
+            }
+
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                alert(
+                    "Please select a JPG, PNG or WebP image."
+                );
+
+
+                event.target.value =
+                    "";
+
+
+                if (preview) {
+
+                    preview.style.display =
+                        "none";
+
+                }
+
+
+                if (image) {
+
+                    image.src =
+                        "";
+
+                }
+
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e) {
+
+                    if (image) {
+
+                        image.src =
+                            e.target.result;
+
+                    }
+
+
+                    if (preview) {
+
+                        preview.style.display =
+                            "flex";
+
+                    }
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EDIT BOOK
+   ========================================================= */
+
+function editBook(bookId) {
+
+    const book =
+        books.find(
+            function(item) {
+
+                return (
+                    item.id ===
+                    bookId
+                );
+
+            }
+        );
+
+
+    if (!book) {
+
+        alert(
+            "Book not found."
+        );
+
+        return;
+
+    }
+
+
+    editingBookId =
+        bookId;
+
+
+    const editId =
+        document.getElementById(
+            "editBookId"
+        );
+
+
+    if (editId) {
+
+        editId.value =
+            book.id;
+
+    }
+
+
+    document.getElementById(
+        "editBookTitle"
+    ).value =
+        book.title || "";
+
+
+    document.getElementById(
+        "editBookAuthor"
+    ).value =
+        book.author || "";
+
+
+    document.getElementById(
+        "editBookISBN"
+    ).value =
+        book.isbn || "";
+
+
+    document.getElementById(
+        "editBookCategory"
+    ).value =
+        book.category || "";
+
+
+    document.getElementById(
+        "editBookCopies"
+    ).value =
+        Number(
+            book.totalCopies || 1
+        );
+
+
+    const coverInput =
+        document.getElementById(
+            "editBookCover"
+        );
+
+
+    if (coverInput) {
+
+        coverInput.value =
+            "";
+
+    }
+
+
+    const preview =
+        document.getElementById(
+            "editCoverPreview"
+        );
+
+
+    const previewImage =
+        document.getElementById(
+            "editCoverPreviewImage"
+        );
+
+
+    const cover =
+        getBookCover(book);
+
+
+    if (cover) {
+
+        if (previewImage) {
+
+            previewImage.src =
+                cover;
+
+        }
+
+
+        if (preview) {
+
+            preview.style.display =
+                "flex";
+
+        }
+
+    } else {
+
+        if (previewImage) {
+
+            previewImage.src =
+                "";
+
+        }
+
+
+        if (preview) {
+
+            preview.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "edit-book-modal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "flex";
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE EDIT BOOK MODAL
+   ========================================================= */
+
+function closeEditBook() {
+
+    const modal =
+        document.getElementById(
+            "edit-book-modal"
+        );
+
+
+    const form =
+        document.getElementById(
+            "editBookForm"
+        );
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
+    const preview =
+        document.getElementById(
+            "editCoverPreview"
+        );
+
+
+    const previewImage =
+        document.getElementById(
+            "editCoverPreviewImage"
+        );
+
+
+    if (preview) {
+
+        preview.style.display =
+            "none";
+
+    }
+
+
+    if (previewImage) {
+
+        previewImage.src =
+            "";
+
+    }
+
+
+    editingBookId =
+        null;
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   EDIT COVER PREVIEW
+   ========================================================= */
+
+const editBookCover =
+    document.getElementById(
+        "editBookCover"
+    );
+
+
+if (editBookCover) {
+
+    editBookCover.addEventListener(
+        "change",
+        function(event) {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+                return;
+            }
+
+
+            const preview =
+                document.getElementById(
+                    "editCoverPreview"
+                );
+
+
+            const image =
+                document.getElementById(
+                    "editCoverPreviewImage"
+                );
+
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                alert(
+                    "Please select a JPG, PNG or WebP image."
+                );
+
+
+                event.target.value =
+                    "";
+
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function(e) {
+
+                    if (image) {
+
+                        image.src =
+                            e.target.result;
+
+                    }
+
+
+                    if (preview) {
+
+                        preview.style.display =
+                            "flex";
+
+                    }
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EDIT BOOK FORM SUBMIT
+   ========================================================= */
+
+const editBookForm =
+    document.getElementById(
+        "editBookForm"
+    );
+
+
+if (editBookForm) {
+
+    editBookForm.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (!editingBookId) {
+
+                alert(
+                    "No book selected for editing."
+                );
+
+                return;
+
+            }
+
+
+            const book =
+                books.find(
+                    function(item) {
+
+                        return (
+                            item.id ===
+                            editingBookId
+                        );
+
+                    }
+                );
+
+
+            if (!book) {
+
+                alert(
+                    "Book not found."
+                );
+
+                return;
+
+            }
+
+
+            const title =
+                document.getElementById(
+                    "editBookTitle"
+                )
+                .value
+                .trim();
+
+
+            const author =
+                document.getElementById(
+                    "editBookAuthor"
+                )
+                .value
+                .trim();
+
+
+            const isbn =
+                document.getElementById(
+                    "editBookISBN"
+                )
+                .value
+                .trim();
+
+
+            const category =
+                document.getElementById(
+                    "editBookCategory"
+                )
+                .value
+                .trim();
+
+
+            const copies =
+                Number(
+                    document.getElementById(
+                        "editBookCopies"
+                    ).value
+                );
+
+
+            const issued =
+                Number(
+                    book.issued || 0
+                );
+
+
+            if (
+                !title ||
+                !author
+            ) {
+
+                alert(
+                    "Please enter book title and author."
+                );
+
+                return;
+
+            }
+
+
+            if (!category) {
+
+                alert(
+                    "Please select a category."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !Number.isInteger(copies) ||
+                copies < 1
+            ) {
+
+                alert(
+                    "Number of copies must be at least 1."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                copies < issued
+            ) {
+
+                alert(
+                    `Copies cannot be less than currently issued copies (${issued}).`
+                );
+
+                return;
+
+            }
+
+
+            const coverInput =
+                document.getElementById(
+                    "editBookCover"
+                );
+
+
+            if (
+                coverInput &&
+                coverInput.files &&
+                coverInput.files.length
+            ) {
+
+                const file =
+                    coverInput.files[0];
+
+
+                const allowedTypes = [
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp"
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    alert(
+                        "Please select a JPG, PNG or WebP image."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            /* ---------------------------------------------
+               UPDATE BACKEND
+               --------------------------------------------- */
+
+            try {
+
+                const response =
+                    await fetch(
+                        ADMIN_BOOKS_API +
+                        "/" +
+                        encodeURIComponent(
+                            editingBookId
+                        ),
+                        {
+
+                            method:
+                                "PUT",
+
+                            headers:
+                                getAuthHeaders(),
+
+                            body:
+    JSON.stringify({
+
+        title:
+            title,
+
+        author:
+            author,
+
+        category:
+            category,
+
+        isbn:
+            isbn || "",
+
+        publisher:
+            book.publisher || "",
+
+        totalCopies:
+            copies,
+
+        coverData:
+            (
+                coverInput &&
+                coverInput.files &&
+                coverInput.files.length
+            )
+                ? await readImageAsDataURL(
+                    coverInput.files[0]
+                )
+                : book.coverData || ""
+
+    })
+
+                        }
+                    );
+
+
+                if (
+                    handleAuthError(response)
+                ) {
+                    return;
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Update book response:",
+                    data
+                );
+
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    alert(
+                        data.message ||
+                        "Failed to update book."
+                    );
+
+                    return;
+
+                }
+
+
+                closeEditBook();
+
+
+                await loadBooksFromBackend();
+
+
+                alert(
+                    "Book updated successfully."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Update book error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to the backend."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DELETE BOOK
+   ========================================================= */
+
+async function deleteBook(bookId) {
+
+    const book =
+        books.find(
+            function(item) {
+
+                return (
+                    item.id ===
+                    bookId
+                );
+
+            }
+        );
+
+
+    if (!book) {
+
+        alert(
+            "Book not found."
+        );
+
+        return;
+
+    }
+
+
+    const issued =
+        Number(
+            book.issued || 0
+        );
+
+
+    if (
+        issued > 0
+    ) {
+
+        alert(
+            "This book is currently issued and cannot be deleted."
+        );
+
+        return;
+
+    }
+
+
+    const confirmDelete =
+        confirm(
+            `Delete "${book.title}"?`
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                ADMIN_BOOKS_API +
+                "/" +
+                encodeURIComponent(
+                    bookId
+                ),
+                {
+
+                    method:
+                        "DELETE",
+
+                    headers:
+                        getAuthHeaders()
+
+                }
+            );
+
+
+        if (
+            handleAuthError(response)
+        ) {
+            return;
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Delete book response:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            alert(
+                data.message ||
+                "Failed to delete book."
+            );
+
+            return;
+
+        }
+
+
+        await loadBooksFromBackend();
+
+
+        alert(
+            "Book deleted successfully."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Delete book error:",
+            error
+        );
+
+        alert(
+            "Unable to connect to the backend."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+const bookSearch =
+    document.getElementById(
+        "bookSearch"
+    );
+
+
+if (bookSearch) {
+
+    bookSearch.addEventListener(
+        "input",
+        function() {
+
+            currentPage =
+                1;
+
+            loadBooks();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+   ========================================================= */
+
+const categoryFilter =
+    document.getElementById(
+        "categoryFilter"
+    );
+
+
+if (categoryFilter) {
+
+    categoryFilter.addEventListener(
+        "change",
+        function() {
+
+            currentPage =
+                1;
+
+            loadBooks();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   STATUS FILTER
+   ========================================================= */
+
+const statusFilter =
+    document.getElementById(
+        "statusFilter"
+    );
+
+
+if (statusFilter) {
+
+    statusFilter.addEventListener(
+        "change",
+        function() {
+
+            currentPage =
+                1;
+
+            loadBooks();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
+
+const addBookBtn =
+    document.getElementById(
+        "addBookBtn"
+    );
+
+
+if (addBookBtn) {
+
+    addBookBtn.addEventListener(
+        "click",
+        openAddBook
+    );
+
+}
+
+
+/* =========================================================
+   MOBILE SIDEBAR
+   ========================================================= */
+
+const mobileMenuBtn =
+    document.getElementById(
+        "mobileMenuBtn"
+    );
+
+
+const sidebar =
+    document.getElementById(
+        "sidebar"
+    );
+
+
+if (
+    mobileMenuBtn &&
+    sidebar
+) {
+
+    mobileMenuBtn.addEventListener(
+        "click",
+        function() {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE SIDEBAR AFTER LINK CLICK
+   ========================================================= */
+
+document
+    .querySelectorAll(".nav-link")
+    .forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    if (
+                        window.innerWidth <=
+                        900 &&
+                        sidebar
+                    ) {
+
+                        sidebar.classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ADMIN PROFILE
+   ========================================================= */
+
+function openAdminProfile(event) {
+
+    if (event) {
+
+        event.preventDefault();
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "admin-profile-modal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "flex";
+
+    }
+
+}
+
+
+function closeAdminProfile() {
+
+    const modal =
+        document.getElementById(
+            "admin-profile-modal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+function openNotifications() {
+
+    alert(
+        "No new notifications."
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN PROFILE MENU
+   ========================================================= */
+
+function toggleProfileMenu(event) {
+
+    if (event) {
+
+        event.stopPropagation();
+
+    }
+
+
+    const menu =
+        document.getElementById(
+            "admin-profile-menu"
+        );
+
+
+    if (!menu) {
+
+        console.error(
+            "admin-profile-menu not found"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        menu.style.display ===
+        "block"
+    ) {
+
+        menu.style.display =
+            "none";
+
+    } else {
+
+        menu.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================================================
+   OLD FUNCTION SUPPORT
+   ========================================================= */
+
+function toggleAdminMenu(event) {
+
+    toggleProfileMenu(
+        event
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE PROFILE MENU WHEN CLICKING OUTSIDE
+   ========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const menu =
+            document.getElementById(
+                "admin-profile-menu"
+            );
+
+
+        if (!menu) {
+            return;
+        }
+
+
+        const profileButton =
+            document.querySelector(
+                ".admin-profile"
+            );
+
+
+        if (
+            menu.style.display ===
+            "block" &&
+
+            !menu.contains(
+                event.target
+            ) &&
+
+            (
+                !profileButton ||
+                !profileButton.contains(
+                    event.target
+                )
+            )
+        ) {
+
+            menu.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE ADD MODAL OUTSIDE
+   ========================================================= */
+
+const addBookModal =
+    document.getElementById(
+        "add-book-modal"
+    );
+
+
+if (addBookModal) {
+
+    addBookModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeAddBook();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE EDIT MODAL OUTSIDE
+   ========================================================= */
+
+const editBookModal =
+    document.getElementById(
+        "edit-book-modal"
+    );
+
+
+if (editBookModal) {
+
+    editBookModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeEditBook();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE PROFILE MODAL OUTSIDE
+   ========================================================= */
+
+const adminProfileModal =
+    document.getElementById(
+        "admin-profile-modal"
+    );
+
+
+if (adminProfileModal) {
+
+    adminProfileModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeAdminProfile();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeAddBook();
+
+            closeEditBook();
+
+            closeAdminProfile();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadBooksFromBackend();
+
+    }
+);
+
+</script>
+
+    <script src="admin-profile.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Books | Library Management System</title>
+
+    <link rel="stylesheet" href="my-books.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">📚</div>
+
+            <div>
+                <h2>Library</h2>
+                <span>Management System</span>
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="student.html" class="nav-link">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="student-books.html" class="nav-link">
+                <span>📚</span>
+                <span>Browse Books</span>
+            </a>
+
+            <a href="my-books.html" class="nav-link active">
+                <span>📖</span>
+                <span>My Books</span>
+            </a>
+
+
+            <p class="menu-title">MY LIBRARY</p>
+
+            <a href="book-history.html" class="nav-link">
+                <span>↩️</span>
+                <span>Book History</span>
+            </a>
+
+            <!-- <a href="student-fines.html" class="nav-link">
+                <span>💰</span>
+                <span>My Fines</span>
+            </a>
+
+            <a href="notifications.html" class="nav-link">
+                <span>🔔</span>
+                <span>Notifications</span>
+            </a>
+
+
+            <p class="menu-title">ACCOUNT</p>
+
+            <a href="student-profile.html" class="nav-link">
+                <span>👤</span>
+                <span>My Profile</span>
+            </a> -->
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html" class="logout">
+                <span>🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <div class="mobile-menu">
+                    ☰
+                </div>
+
+                <div class="page-title">
+
+                    <h1>My Books</h1>
+
+                    <p>Library Management System</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button class="notification">
+                    🔔
+                    <span></span>
+                </button>
+
+
+                <div class="student-profile">
+
+                    <div class="profile-avatar">
+                        S
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>Sonu</strong>
+
+                        <span>Student</span>
+
+                    </div>
+
+                    <b>⌄</b>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE BODY ================= -->
+
+        <div class="page-body">
+
+
+            <!-- PAGE INTRO -->
+
+            <div class="page-intro">
+
+                <div>
+
+                    <span class="section-label">
+                        MY LIBRARY
+                    </span>
+
+                    <h2>My Books</h2>
+
+                    <p>
+                        View and manage the books currently issued to you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SUMMARY CARDS ================= -->
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+
+                    <div class="summary-icon blue">
+                        📚
+                    </div>
+
+                    <div>
+                        <span>Total Books</span>
+                        <strong>3</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+                        <span>Active Books</span>
+                        <strong>2</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon orange">
+                        ⏰
+                    </div>
+
+                    <div>
+                        <span>Due Soon</span>
+                        <strong>1</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-icon purple">
+                        ↻
+                    </div>
+
+                    <div>
+                        <span>Renewed</span>
+                        <strong>1</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= BOOK SECTION ================= -->
+
+            <!-- <section class="books-section">
+
+                <div class="section-header">
+
+                    <div>
+                        <h3>Currently Issued Books</h3>
+
+                        <span>
+                            Books issued to your account
+                        </span>
+                    </div>
+
+
+                    <a href="student-books.html" class="browse-btn">
+                        + Browse Books
+                    </a>
+
+                </div> -->
+                <section class="books-section" id="requested-books-section">
+
+    <div class="section-header">
+
+        <div>
+            <h3>Book Requests</h3>
+
+            <span>
+                Books requested by you
+            </span>
+        </div>
+
+    </div>
+
+    <div id="requested-books"></div>
+
+                
+
+ </section>
+
+
+            <!-- ================= INFORMATION ================= -->
+
+            <div class="info-box">
+
+                <div class="info-icon">
+                    💡
+                </div>
+
+                <div>
+
+                    <h4>Library Reminder</h4>
+
+                    <p>
+                        Please return your books before the due date
+                        to avoid late return fines.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+<script src="my-books.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuButton = document.querySelector(".mobile-menu");
+    const sidebar = document.querySelector(".sidebar");
+
+    if (!menuButton || !sidebar) return;
+
+    menuButton.addEventListener("click", function () {
+        sidebar.classList.toggle("active");
+    });
+
+    document.addEventListener("click", function (event) {
+        if (
+            window.innerWidth <= 650 &&
+            !sidebar.contains(event.target) &&
+            !menuButton.contains(event.target)
+        ) {
+            sidebar.classList.remove("active");
+        }
+    });
+});
+</script>
+
+</body>
+</html>

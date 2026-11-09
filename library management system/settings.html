@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | Library Management System</title>
+
+    <link rel="stylesheet" href="settings.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>Library</h2>
+
+                <span>
+                    Management System
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="menu-title">
+                MAIN MENU
+            </p>
+
+
+            <a href="admin-dashboard.html"
+               class="nav-link">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="book.html"
+               class="nav-link">
+
+                <span>📚</span>
+                <span>Books</span>
+
+            </a>
+
+
+            <a href="students.html"
+               class="nav-link">
+
+                <span>👨‍🎓</span>
+                <span>Students</span>
+
+            </a>
+
+
+            <p class="menu-title">
+                LIBRARY
+            </p>
+
+
+            <a href="issue-book.html"
+               class="nav-link">
+
+                <span>📤</span>
+                <span>Issue Book</span>
+
+            </a>
+
+
+            <a href="return-book.html"
+               class="nav-link">
+
+                <span>↩️</span>
+                <span>Return Book</span>
+
+            </a>
+
+
+            <a href="fines.html"
+               class="nav-link">
+
+                <span>💰</span>
+                <span>Fines</span>
+
+            </a>
+
+
+            <a href="admin-book-history.html"
+               class="nav-link">
+
+                <span>📖</span>
+                <span>Book History</span>
+
+            </a>
+
+
+            <p class="menu-title">
+                SYSTEM
+            </p>
+
+
+            <a href="#"
+               class="nav-link"
+               onclick="openReports(event)">
+
+                <span>📊</span>
+                <span>Reports</span>
+
+            </a>
+
+
+            <a href="settings.html"
+               class="nav-link active">
+
+                <span>⚙️</span>
+                <span>Settings</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html"
+               class="logout">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="top-header">
+
+
+            <div class="header-left">
+
+
+                <button
+                    class="mobile-menu"
+                    type="button"
+                    onclick="toggleSidebar()">
+
+                    ☰
+
+                </button>
+
+
+                <div class="page-title">
+
+                    <h1>
+                        Settings
+                    </h1>
+
+
+                    <p>
+                        Library Management System
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="header-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <button
+                    class="notification"
+                    type="button"
+                    onclick="openNotifications()">
+
+                    🔔
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+
+                <!-- ADMIN PROFILE -->
+
+                <button
+                    class="admin-profile"
+                    type="button"
+                    onclick="toggleProfileMenu(event)">
+
+
+                    <div class="profile-avatar">
+                        A
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Admin
+                        </strong>
+
+                        <span>
+                            Library Administrator
+                        </span>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        
+                    </span>
+
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= PAGE BODY ================= -->
+
+        <div class="page-body">
+
+
+            <!-- INTRO -->
+
+            <div class="page-intro">
+
+
+                <span class="section-label">
+                    SYSTEM CONFIGURATION
+                </span>
+
+
+                <h2>
+                    Settings
+                </h2>
+
+
+                <p>
+                    Manage your library system preferences and configuration.
+                </p>
+
+            </div>
+
+
+
+            <!-- ================= SETTINGS LAYOUT ================= -->
+
+            <div class="settings-layout">
+
+
+                <!-- ================= SETTINGS MENU ================= -->
+
+                <aside class="settings-menu">
+
+
+                    <div class="settings-menu-title">
+
+                        <span>
+                            SETTINGS
+                        </span>
+
+                    </div>
+
+
+
+                    <a href="#profile"
+                       class="setting-link active">
+
+                        <span>👤</span>
+
+                        <div>
+
+                            <strong>
+                                Admin Profile
+                            </strong>
+
+                            <small>
+                                Personal information
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="#library"
+                       class="setting-link">
+
+                        <span>🏛️</span>
+
+                        <div>
+
+                            <strong>
+                                Library Information
+                            </strong>
+
+                            <small>
+                                Library details
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="#fine"
+                       class="setting-link">
+
+                        <span>💰</span>
+
+                        <div>
+
+                            <strong>
+                                Fine Settings
+                            </strong>
+
+                            <small>
+                                Fine & penalty rules
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="#books"
+                       class="setting-link">
+
+                        <span>📚</span>
+
+                        <div>
+
+                            <strong>
+                                Book Settings
+                            </strong>
+
+                            <small>
+                                Issue & return rules
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="#notifications"
+                       class="setting-link">
+
+                        <span>🔔</span>
+
+                        <div>
+
+                            <strong>
+                                Notifications
+                            </strong>
+
+                            <small>
+                                Notification preferences
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <a href="#security"
+                       class="setting-link">
+
+                        <span>🔐</span>
+
+                        <div>
+
+                            <strong>
+                                Security
+                            </strong>
+
+                            <small>
+                                Password & security
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                </aside>
+
+
+
+                <!-- ================= SETTINGS CONTENT ================= -->
+
+                <section class="settings-content">
+
+
+                    <!-- ================= PROFILE ================= -->
+
+                    <div
+                        class="settings-card"
+                        id="profile">
+
+
+                        <div class="card-header">
+
+
+                            <div class="card-icon blue">
+                                👤
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Admin Profile
+                                </h3>
+
+                                <p>
+                                    Update your personal information.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="profile-edit">
+
+
+                            <div class="large-avatar">
+                                A
+                            </div>
+
+
+                            <div>
+
+                                <button
+                                    type="button"
+                                    class="change-photo"
+                                    onclick="changePhoto()">
+
+                                    Change Photo
+
+                                </button>
+
+
+                                <p>
+                                    JPG, PNG or WEBP. Max 2MB.
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Full Name
+                                </label>
+
+                                <input
+                                    id="adminName"
+                                    type="text"
+                                    value="Library Admin">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Email Address
+                                </label>
+
+                                <input
+                                    id="adminEmail"
+                                    type="email"
+                                    value="admin@library.com">
+
+                            </div>
+                            <div class="form-group">
+    <label>Username</label>
+    <input id="adminUsername" type="text" placeholder="Enter username">
+</div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    id="adminPhone"
+                                    type="text"
+                                    value="+91 98765 43210">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Role
+                                </label>
+
+                                <input
+                                    type="text"
+                                    value="Library Administrator"
+                                    disabled>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================= LIBRARY INFORMATION ================= -->
+
+                    <div
+                        class="settings-card"
+                        id="library">
+
+
+                        <div class="card-header">
+
+
+                            <div class="card-icon purple">
+                                🏛️
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Library Information
+                                </h3>
+
+                                <p>
+                                    Basic information about your library.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Library Name
+                                </label>
+
+                                <input
+                                    id="libraryName"
+                                    type="text"
+                                    value="Central College Library">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Library Email
+                                </label>
+
+                                <input
+                                    id="libraryEmail"
+                                    type="email"
+                                    value="library@college.edu">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Opening Time
+                                </label>
+
+                                <input
+                                    id="openingTime"
+                                    type="time"
+                                    value="09:00">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Closing Time
+                                </label>
+
+                                <input
+                                    id="closingTime"
+                                    type="time"
+                                    value="18:00">
+
+                            </div>
+
+
+
+                            <div class="form-group full">
+
+                                <label>
+                                    Library Address
+                                </label>
+
+                                <textarea
+                                    id="libraryAddress"
+                                    rows="3">College Campus, Main Building, India</textarea>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================= FINE SETTINGS ================= -->
+
+                    <div
+                        class="settings-card"
+                        id="fine">
+
+
+                        <div class="card-header">
+
+
+                            <div class="card-icon orange">
+                                💰
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Fine Settings
+                                </h3>
+
+                                <p>
+                                    Configure overdue fine rules.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Fine Per Day
+                                </label>
+
+
+                                <div class="input-prefix">
+
+                                    <span>₹</span>
+
+                                    <input
+                                        id="finePerDay"
+                                        type="number"
+                                        value="5"
+                                        min="0">
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Maximum Fine
+                                </label>
+
+
+                                <div class="input-prefix">
+
+                                    <span>₹</span>
+
+                                    <input
+                                        id="maximumFine"
+                                        type="number"
+                                        value="500"
+                                        min="0">
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Grace Period
+                                </label>
+
+
+                                <div class="input-suffix">
+
+                                    <input
+                                        id="gracePeriod"
+                                        type="number"
+                                        value="0"
+                                        min="0">
+
+                                    <span>
+                                        Days
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================= BOOK SETTINGS ================= -->
+
+                    <div
+                        class="settings-card"
+                        id="books">
+
+
+                        <div class="card-header">
+
+
+                            <div class="card-icon green">
+                                📚
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Book Settings
+                                </h3>
+
+                                <p>
+                                    Configure book issue and return rules.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Maximum Books Per Student
+                                </label>
+
+                                <input
+                                    id="maxBooks"
+                                    type="number"
+                                    value="5"
+                                    min="1">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Issue Duration
+                                </label>
+
+
+                                <div class="input-suffix">
+
+                                    <input
+                                        id="issueDuration"
+                                        type="number"
+                                        value="14"
+                                        min="1">
+
+                                    <span>
+                                        Days
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================= NOTIFICATIONS ================= -->
+
+                    <div
+                        class="settings-card"
+                        id="notifications">
+
+
+                        <div class="card-header">
+
+
+                            <div class="card-icon blue">
+                                🔔
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Notifications
+                                </h3>
+
+                                <p>
+                                    Manage system notification preferences.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="toggle-row">
+
+
+                            <div>
+
+                                <strong>
+                                    Due Date Reminder
+                                </strong>
+
+                                <p>
+                                    Notify students before their book is due.
+                                </p>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    id="dueReminder"
+                                    type="checkbox"
+                                    checked>
+
+                                <span></span>
+
+                            </label>
+
+
+                        </div>
+
+
+
+                        <div class="toggle-row">
+
+
+                            <div>
+
+                                <strong>
+                                    Overdue Notification
+                                </strong>
+
+                                <p>
+                                    Notify students when a book becomes overdue.
+                                </p>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    id="overdueNotification"
+                                    type="checkbox"
+                                    checked>
+
+                                <span></span>
+
+                            </label>
+
+
+                        </div>
+
+
+
+                        <div class="toggle-row">
+
+
+                            <div>
+
+                                <strong>
+                                    Fine Notification
+                                </strong>
+
+                                <p>
+                                    Notify students about pending fines.
+                                </p>
+
+                            </div>
+
+
+                            <label class="switch">
+
+                                <input
+                                    id="fineNotification"
+                                    type="checkbox"
+                                    checked>
+
+                                <span></span>
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ================= SECURITY ================= -->
+
+                    <div
+                        class="settings-card"
+                        id="security">
+
+
+                        <div class="card-header">
+
+
+                            <div class="card-icon red">
+                                🔐
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Security
+                                </h3>
+
+                                <p>
+                                    Update your account password.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="form-grid">
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Current Password
+                                </label>
+
+                                <input
+                                    id="currentPassword"
+                                    type="password"
+                                    placeholder="Enter current password">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    New Password
+                                </label>
+
+                                <input
+                                    id="newPassword"
+                                    type="password"
+                                    placeholder="Enter new password">
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label>
+                                    Confirm Password
+                                </label>
+
+                                <input
+                                    id="confirmPassword"
+                                    type="password"
+                                    placeholder="Confirm new password">
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================= SAVE BAR ================= -->
+
+                    <div class="save-bar">
+
+
+                        <button
+                            type="button"
+                            class="reset-btn"
+                            onclick="resetSettings()">
+
+                            Reset
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="save-btn"
+                            onclick="saveSettings()">
+
+                            ✓ Save Changes
+
+                        </button>
+
+
+                    </div>
+
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+    
+async function loadAdminProfile() {
+    try {
+        const token = localStorage.getItem("adminToken");
+
+        if (!token) {
+            throw new Error("Admin login required.");
+        }
+
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/admin/profile",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(
+                data.message || "Unable to load admin profile."
+            );
+        }
+
+        const admin = data.admin;
+
+      document.getElementById("adminName").value = admin.name || "";
+document.getElementById("adminEmail").value = admin.email || "";
+document.getElementById("adminPhone").value = admin.phone || "";
+document.getElementById("adminUsername").value = admin.username || "";
+
+        console.log("Real admin profile loaded.");
+
+    } catch (error) {
+        console.error("Admin Profile Load Error:", error);
+        alert(error.message || "Unable to load admin profile.");
+    }
+}
+
+async function saveAdminProfile() {
+    try {
+        const token = localStorage.getItem("adminToken");
+
+        if (!token) {
+            alert("Admin login required.");
+            return;
+        }
+
+        const name = document.getElementById("adminName").value.trim();
+        const email = document.getElementById("adminEmail").value.trim();
+        const username = document.getElementById("adminUsername").value.trim();
+        const phone = document.getElementById("adminPhone").value.trim();
+
+        if (!name || !email || !username) {
+            alert("Name, email and username are required.");
+            return;
+        }
+
+        const response = await fetch("http://127.0.0.1:5000/api/admin/profile", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                username,
+                phone
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Profile update failed.");
+        }
+
+        alert("Admin profile updated successfully!");
+
+        await loadAdminProfile();
+
+    } catch (error) {
+        console.error("Save Admin Profile Error:", error);
+        alert(error.message || "Unable to save admin profile.");
+    }
+}
+
+
+async function loadSettings() {
+
+    try {
+
+        const token = localStorage.getItem("adminToken");
+
+        if (!token) {
+            alert("Admin session expired. Please login again.");
+            return;
+        }
+
+        // ==========================================
+        // LOAD LIBRARY INFORMATION
+        // ==========================================
+
+        const collegeResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/college-settings",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!collegeResponse.ok) {
+
+            const errorText =
+                await collegeResponse.text();
+
+            console.error(
+                "College Settings API Error:",
+                collegeResponse.status,
+                errorText
+            );
+
+            throw new Error(
+                "Library information API returned " +
+                collegeResponse.status
+            );
+        }
+
+        const collegeData =
+            await collegeResponse.json();
+
+        if (!collegeData.success) {
+            throw new Error(
+                collegeData.message ||
+                "Unable to load library information."
+            );
+        }
+
+        const college =
+            collegeData.college;
+
+        document.getElementById("libraryName").value =
+            college.collegeName || "";
+
+        document.getElementById("libraryEmail").value =
+            college.officialEmail || "";
+
+        document.getElementById("libraryAddress").value =
+            college.libraryAddress || "";
+
+        document.getElementById("openingTime").value =
+            college.openingTime || "09:00";
+
+        document.getElementById("closingTime").value =
+            college.closingTime || "18:00";
+
+
+        // ==========================================
+        // LOAD LIBRARY SETTINGS
+        // ==========================================
+
+        const settingsResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/settings",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!settingsResponse.ok) {
+
+            const errorText =
+                await settingsResponse.text();
+
+            console.error(
+                "Settings API Error:",
+                settingsResponse.status,
+                errorText
+            );
+
+            throw new Error(
+                "Library settings API returned " +
+                settingsResponse.status
+            );
+        }
+
+        const settingsData =
+            await settingsResponse.json();
+
+        if (!settingsData.success) {
+            throw new Error(
+                settingsData.message ||
+                "Unable to load library settings."
+            );
+        }
+
+        const settings =
+            settingsData.settings;
+
+        document.getElementById("finePerDay").value =
+            settings.finePerDay ?? 5;
+
+        document.getElementById("maximumFine").value =
+            settings.maximumFine ?? 500;
+
+        document.getElementById("gracePeriod").value =
+            settings.gracePeriod ?? 0;
+
+        document.getElementById("maxBooks").value =
+            settings.maxBooks ?? 5;
+
+        document.getElementById("issueDuration").value =
+            settings.issueDuration ?? 14;
+
+        document.getElementById("dueReminder").checked =
+            settings.dueReminder !== false;
+
+        document.getElementById("overdueNotification").checked =
+            settings.overdueNotification !== false;
+
+        document.getElementById("fineNotification").checked =
+            settings.fineNotification !== false;
+
+        console.log(
+            "Settings loaded successfully."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Load Settings Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to load library settings."
+        );
+    }
+}
+
+
+async function saveSettings() {
+
+    try {
+
+        const token =
+            localStorage.getItem("adminToken");
+
+        if (!token) {
+            alert("Admin session expired. Please login again.");
+            return;
+        }
+
+
+        // ==========================================
+        // LIBRARY INFORMATION
+        // ==========================================
+
+        const collegeSettings = {
+
+            libraryName:
+                document.getElementById("libraryName").value.trim(),
+
+            libraryEmail:
+                document.getElementById("libraryEmail").value.trim(),
+
+            libraryAddress:
+                document.getElementById("libraryAddress").value.trim(),
+
+            openingTime:
+                document.getElementById("openingTime").value,
+
+            closingTime:
+                document.getElementById("closingTime").value
+        };
+
+
+        // ==========================================
+        // LIBRARY SETTINGS
+        // ==========================================
+
+        const settings = {
+
+            finePerDay:
+                Number(
+                    document.getElementById("finePerDay").value
+                ),
+
+            maximumFine:
+                Number(
+                    document.getElementById("maximumFine").value
+                ),
+
+            gracePeriod:
+                Number(
+                    document.getElementById("gracePeriod").value
+                ),
+
+            maxBooks:
+                Number(
+                    document.getElementById("maxBooks").value
+                ),
+
+            issueDuration:
+                Number(
+                    document.getElementById("issueDuration").value
+                ),
+
+            dueReminder:
+                document.getElementById("dueReminder").checked,
+
+            overdueNotification:
+                document.getElementById("overdueNotification").checked,
+
+            fineNotification:
+                document.getElementById("fineNotification").checked
+        };
+
+
+        // ==========================================
+        // VALIDATION
+        // ==========================================
+
+        if (
+            settings.finePerDay < 0 ||
+            settings.maximumFine < 0 ||
+            settings.gracePeriod < 0
+        ) {
+            alert("Fine values cannot be negative.");
+            return;
+        }
+
+        if (settings.maxBooks < 1) {
+            alert("Maximum books must be at least 1.");
+            return;
+        }
+
+        if (settings.issueDuration < 1) {
+            alert("Issue duration must be at least 1 day.");
+            return;
+        }
+        
+        // ==========================================
+        // SAVE ADMIN PROFILE
+        // ==========================================
+
+        const adminName =
+            document.getElementById("adminName").value.trim();
+
+        const adminEmail =
+            document.getElementById("adminEmail").value.trim();
+
+        const adminUsername =
+            document.getElementById("adminUsername").value.trim();
+
+        const adminPhone =
+            document.getElementById("adminPhone").value.trim();
+
+        if (!adminName || !adminEmail || !adminUsername) {
+            alert("Admin name, email and username are required.");
+            return;
+        }
+
+        const profileResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/profile",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    name: adminName,
+                    email: adminEmail,
+                    username: adminUsername,
+                    phone: adminPhone
+                })
+            }
+        );
+
+        const profileData = await profileResponse.json();
+
+        if (!profileResponse.ok || !profileData.success) {
+            throw new Error(
+                profileData.message || "Unable to save admin profile."
+            );
+        }
+
+
+
+        // ==========================================
+        // SAVE LIBRARY INFORMATION
+        // ==========================================
+
+        const collegeResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/college-settings",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body:
+                    JSON.stringify(collegeSettings)
+            }
+        );
+
+        const collegeData =
+            await collegeResponse.json();
+
+        if (
+            !collegeResponse.ok ||
+            !collegeData.success
+        ) {
+            throw new Error(
+                collegeData.message ||
+                "Unable to save library information."
+            );
+        }
+
+
+        // ==========================================
+        // SAVE LIBRARY SETTINGS
+        // ==========================================
+
+        const settingsResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/settings",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body:
+                    JSON.stringify(settings)
+            }
+        );
+
+        const settingsData =
+            await settingsResponse.json();
+
+        if (
+            !settingsResponse.ok ||
+            !settingsData.success
+        ) {
+            throw new Error(
+                settingsData.message ||
+                "Unable to save library settings."
+            );
+        }
+
+        
+        // ==========================================
+        // CHANGE ADMIN PASSWORD (IF ENTERED)
+        // ==========================================
+
+        const currentPassword =
+            document.getElementById("currentPassword").value;
+
+        const newPassword =
+            document.getElementById("newPassword").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        // Run password change only if any password field is filled
+        if (currentPassword || newPassword || confirmPassword) {
+
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                throw new Error(
+                    "Please fill Current, New and Confirm Password fields."
+                );
+            }
+
+            if (newPassword !== confirmPassword) {
+                throw new Error(
+                    "New Password and Confirm Password do not match."
+                );
+            }
+
+            const passwordResponse = await fetch(
+                "http://127.0.0.1:5000/api/auth/admin-change-password",
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword,
+                        confirmPassword
+                    })
+                }
+            );
+
+            // Safely handle JSON or HTML responses
+            const responseText = await passwordResponse.text();
+            let passwordData;
+
+            try {
+                passwordData = JSON.parse(responseText);
+            } catch {
+                console.error(
+                    "Password API returned non-JSON:",
+                    responseText
+                );
+
+                throw new Error(
+                    "Password API returned an HTML response. Check the API URL and backend route."
+                );
+            }
+
+            if (!passwordResponse.ok || !passwordData.success) {
+                throw new Error(
+                    passwordData.message || "Password change failed."
+                );
+            }
+
+            document.getElementById("currentPassword").value = "";
+            document.getElementById("newPassword").value = "";
+            document.getElementById("confirmPassword").value = "";
+        }
+
+
+        alert(
+            "Library settings saved successfully."
+        );
+
+        await loadSettings();
+
+    } catch (error) {
+
+        console.error(
+            "Save Settings Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to save library settings."
+        );
+    }
+}
+
+
+async function resetSettings() {
+
+    const confirmReset = confirm(
+        "Reset all library settings to their default values?"
+    );
+
+    if (!confirmReset) {
+        return;
+    }
+
+    try {
+
+        const token =
+            localStorage.getItem("adminToken");
+
+        if (!token) {
+            alert("Admin session expired. Please login again.");
+            return;
+        }
+
+
+        // ==========================================
+        // RESET LIBRARY INFORMATION
+        // ==========================================
+
+        const collegeSettings = {
+
+            libraryName:
+                "Central College Library",
+
+            libraryEmail:
+                "library@college.edu",
+
+            libraryAddress:
+                "",
+
+            openingTime:
+                "09:00",
+
+            closingTime:
+                "18:00"
+        };
+
+
+        // ==========================================
+        // RESET LIBRARY SETTINGS
+        // ==========================================
+
+        const defaultSettings = {
+
+            finePerDay: 5,
+
+            maximumFine: 500,
+
+            gracePeriod: 0,
+
+            maxBooks: 5,
+
+            issueDuration: 14,
+
+            dueReminder: true,
+
+            overdueNotification: true,
+
+            fineNotification: true
+        };
+
+
+        // Save default college information
+
+        const collegeResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/college-settings",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body:
+                    JSON.stringify(collegeSettings)
+            }
+        );
+
+        const collegeData =
+            await collegeResponse.json();
+
+        if (
+            !collegeResponse.ok ||
+            !collegeData.success
+        ) {
+            throw new Error(
+                collegeData.message ||
+                "Unable to reset library information."
+            );
+        }
+
+
+        // Save default library settings
+
+        const settingsResponse = await fetch(
+            "http://127.0.0.1:5000/api/admin/settings",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+
+                body:
+                    JSON.stringify(defaultSettings)
+            }
+        );
+
+        const settingsData =
+            await settingsResponse.json();
+
+        if (
+            !settingsResponse.ok ||
+            !settingsData.success
+        ) {
+            throw new Error(
+                settingsData.message ||
+                "Unable to reset library settings."
+            );
+        }
+
+
+        await loadSettings();
+
+        alert(
+            "Library settings reset to default values."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Reset Settings Error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Unable to reset library settings."
+        );
+    }
+}
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+        loadSettings();
+        loadAdminProfile();
+    }
+);
+
+function toggleSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+
+    if (sidebar) {
+        sidebar.classList.toggle("open");
+    }
+}
+
+function toggleProfileMenu(event) {
+    if (event) event.stopPropagation();
+
+    const menu = document.getElementById("profileMenu");
+
+    if (menu) {
+        menu.classList.toggle("show");
+    }
+}
+
+document.addEventListener("click", function (event) {
+    const menu = document.getElementById("profileMenu");
+    const profileButton = document.querySelector(".admin-profile");
+
+    if (
+        menu &&
+        !menu.contains(event.target) &&
+        profileButton &&
+        !profileButton.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+    }
+});
+
+document.addEventListener("click", function (event) {
+    const menu = document.getElementById("adminProfileMenu");
+    const profileButton = document.querySelector(".admin-profile");
+
+    if (
+        menu &&
+        !menu.contains(event.target) &&
+        !profileButton.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+    }
+});
+
+
+
+
+</script>
+
+
+
+
+</body>
+
+</html>

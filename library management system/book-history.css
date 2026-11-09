@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f6f8fc;
+    color: #26344d;
+}
+
+.history-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.history-header h1 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.history-header p {
+    color: #8995aa;
+    font-size: 14px;
+}
+
+.back-btn {
+    text-decoration: none;
+    background: #1769ff;
+    color: white;
+    padding: 10px 17px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.history-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.table-header,
+.history-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 0.8fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.table-header {
+    padding: 15px;
+    color: #8995aa;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.history-row {
+    padding: 18px 15px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.book-title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.book-author {
+    color: #8995aa;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.history-date {
+    color: #65738b;
+    font-size: 12px;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.status.issued {
+    background: #e8f7ef;
+    color: #15915a;
+}
+
+.status.pending {
+    background: #fff4df;
+    color: #e99a20;
+}
+
+.status.rejected {
+    background: #ffe9e9;
+    color: #d64545;
+}
+
+.empty-history {
+    text-align: center;
+    padding: 50px 20px;
+    color: #8995aa;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+
+    .table-header {
+        display: none;
+    }
+
+    .history-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .history-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+}
+/* ===== BOOK HISTORY TABLE ALIGNMENT ===== */
+
+.table-header,
+.history-row {
+    display: grid;
+    grid-template-columns:
+        1.5fr
+        1.1fr
+        0.9fr
+        0.9fr
+        0.9fr
+        0.6fr
+        0.8fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.table-header {
+    padding: 16px 20px;
+    font-weight: 600;
+}
+
+.history-row {
+    padding: 16px 20px;
+    border-top: 1px solid #edf0f5;
+    background: #fff;
+}
+
+.history-row > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.book-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.book-author {
+    color: #8490a2;
+    font-size: 12px;
+}
+
+.history-date,
+.student-name {
+    font-size: 13px;
+}
+
+/* STATUS BADGES */
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status.returned {
+    color: #168653;
+    background: #e5f8ee;
+}
+
+.status.issued {
+    color: #1769ff;
+    background: #eaf2ff;
+}
+
+.status.rejected {
+    color: #d14343;
+    background: #ffeded;
+}
+
+.status.pending {
+    color: #a86a0a;
+    background: #fff3d9;
+}
+
+@media (max-width: 900px) {
+    .history-card {
+        overflow-x: auto;
+    }
+
+    .table-header,
+    .history-row {
+        min-width: 900px;
+    }
+}

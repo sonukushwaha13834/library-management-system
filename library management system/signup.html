@@ -1,0 +1,267 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System | Create Account</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="background-overlay"></div>
+
+        <!-- LEFT SIDE -->
+
+        <section class="welcome-section">
+
+            <div class="welcome-content">
+
+                <div class="brand">
+                    <span class="brand-icon">📚</span>
+                    <span>LIBRARY SYSTEM</span>
+                </div>
+
+                <h1>
+                    Create your
+                    <span>Library</span> Account
+                </h1>
+
+                <div class="blue-line"></div>
+
+                <p>
+                    Join the Library System
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT SIDE -->
+
+        <section class="login-section">
+
+            <div class="login-card">
+
+                <!-- HEADER -->
+
+                <div class="login-header">
+
+                    <div class="book-icon">
+                        📖
+                    </div>
+
+                    <h2>Create Account</h2>
+
+                    <p>
+                        Create your student library account
+                    </p>
+
+                </div>
+
+
+                <!-- SIGN UP FORM -->
+
+                <form class="login-form" id="signupForm">
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- USERNAME -->
+
+                    <div class="form-group">
+
+                        <label for="signupUsername">
+                            Username
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="text"
+                                id="signupUsername"
+                                placeholder="Create username"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                👨‍💻
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                ✉️
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="signupPassword">
+                            Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="password"
+                                id="signupPassword"
+                                placeholder="Create password"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Confirm password"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACCOUNT TYPE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Account Type
+                        </label>
+
+                        <div class="input-box">
+
+                            <input
+                                type="text"
+                                value="Student"
+                                readonly
+                            >
+
+                            <span class="input-icon">
+                                🎓
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CREATE ACCOUNT -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+                        Create Account
+                        <span>→</span>
+                    </button>
+
+
+                    <!-- BACK TO LOGIN -->
+
+                    <div class="signup">
+
+                        <span>
+                            Already have an account?
+                        </span>
+
+                        <a
+                            href="index.html"
+                            class="signup-button"
+                        >
+                            Log in
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+    <script src="signup.js"></script>
+
+</body>
+</html>
+```

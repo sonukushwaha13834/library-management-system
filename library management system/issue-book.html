@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Book - Library Management System</title>
+
+    <link rel="stylesheet" href="issue-book.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+            <div>
+                <h2>Library</h2>
+                <span>Management System</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="book.html">
+                <span>📚</span>
+                <span>Books</span>
+            </a>
+
+            <a href="students.html">
+                <span>👨‍🎓</span>
+                <span>Students</span>
+            </a>
+
+            <a href="issue-book.html" class="active">
+                <span>📖</span>
+                <span>Issue Book</span>
+            </a>
+
+            <a href="return-book.html">
+                <span>↩️</span>
+                <span>Return Book</span>
+            </a>
+
+            <a href="fines.html">
+                <span>💰</span>
+                <span>Fines</span>
+            </a>
+
+            <a href="#">
+                <span>📊</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="index.html">
+                <span>🚪</span>
+                <span>Logout</span>
+            </a>
+        </div>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <div class="mobile-menu" onclick="toggleSidebar()">
+                    ☰
+                </div>
+
+                <div>
+                    <h1>Issue Book</h1>
+                    <p>Issue a book to a student</p>
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <!-- Notification -->
+                <div class="notification-wrapper">
+                    <button class="notification-btn" type="button" onclick="openNotifications()">
+                        🔔
+                        <span class="notification-dot"></span>
+                    </button>
+                </div>
+
+
+                <!-- Admin Profile -->
+                <div class="admin-profile" onclick="toggleAdminMenu(event)">
+
+                    <div class="admin-avatar">
+                        A
+                    </div>
+
+                    <div class="admin-info">
+                        <strong>Admin</strong>
+                        <span>Library Administrator</span>
+                    </div>
+
+                    <span class="profile-arrow">⌄</span>
+
+                    <div class="admin-menu" id="adminMenu">
+
+                        <a href="#">👤 My Profile</a>
+                        <a href="settings.html">⚙️ Settings</a>
+                        <a href="index.html">🚪 Logout</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- Page Content -->
+        <section class="page-content">
+
+            <div class="page-intro">
+                <div>
+                    <h2>Issue a Book</h2>
+                    <p>Select a student and book to create a new issue.</p>
+                </div>
+            </div>
+
+
+            <!-- Issue Layout -->
+            <div class="issue-layout">
+
+
+                <!-- LEFT SIDE -->
+                <div class="issue-card">
+
+                    <form id="issueForm">
+
+                        <!-- Student Section -->
+                        <div class="form-section">
+
+                            <div class="section-title">
+                                <span class="section-icon">👨‍🎓</span>
+
+                                <div>
+                                    <h3>Select Student</h3>
+                                    <p>Choose the student who will receive the book.</p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="studentSelect">
+                                    Student
+                                </label>
+
+                                <select id="studentSelect" required>
+
+                                    <option value="">
+                                        Select Student
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Student Preview -->
+                            <div class="student-preview" id="studentPreview" style="display:none;">
+
+                                <div class="preview-avatar">
+                                    👨‍🎓
+                                </div>
+
+                                <div class="preview-details">
+
+                                    <strong>Select a student</strong>
+
+                                    <span>
+                                        Student details
+                                    </span>
+
+                                </div>
+
+                                <div class="book-limit">
+
+                                    <small>Books Issued</small>
+
+                                    <strong>0 / 5</strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Book Section -->
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <span class="section-icon">📚</span>
+
+                                <div>
+                                    <h3>Select Book</h3>
+                                    <p>Choose the book you want to issue.</p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="bookSelect">
+                                    Book
+                                </label>
+
+                                <select id="bookSelect" required>
+
+                                    <option value="">
+                                        Select Book
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Book Preview -->
+                            <div class="book-preview" id="bookPreview" style="display:none;">
+
+                                <div class="book-cover">
+                                    📖
+                                </div>
+
+                                <div class="preview-details">
+
+                                    <strong>Select a book</strong>
+
+                                    <span>Author</span>
+
+                                    <small>ISBN</small>
+
+                                </div>
+
+                                <div class="availability">
+
+                                    <small>Available</small>
+
+                                    <strong>0</strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Dates -->
+                        <div class="form-section">
+
+                            <div class="section-title">
+
+                                <span class="section-icon">📅</span>
+
+                                <div>
+                                    <h3>Issue Details</h3>
+                                    <p>Set the issue and due dates.</p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="date-grid">
+
+                                <div class="form-group">
+
+                                    <label for="issueDate">
+                                        Issue Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="issueDate"
+                                        required
+                                    >
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label for="dueDate">
+                                        Due Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="dueDate"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Buttons -->
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                class="cancel-btn"
+                                id="cancelBtn"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="issue-btn"
+                            >
+                                📖 Issue Book
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- RIGHT SIDE -->
+                <div class="right-column">
+
+
+                    <!-- Guidelines -->
+                    <div class="guidelines-card">
+
+                        <div class="card-heading">
+
+                            <span>💡</span>
+
+                            <div>
+                                <h3>Issue Guidelines</h3>
+                                <p>Please follow these rules.</p>
+                            </div>
+
+                        </div>
+
+
+                        <ul>
+
+                            <li>
+                                A student can have maximum
+                                <strong>5 active books</strong>.
+                            </li>
+
+                            <li>
+                                A book cannot be issued if
+                                no copies are available.
+                            </li>
+
+                            <li>
+                                The due date should be after
+                                the issue date.
+                            </li>
+
+                            <li>
+                                Late returns may result in
+                                a fine.
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <!-- Today Stats -->
+                    <div class="today-card">
+
+                        <div class="card-heading">
+
+                            <span>📅</span>
+
+                            <div>
+                                <h3>Today's Issues</h3>
+                                <p>Books issued today</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="today-number">
+                            0
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Recent Issues -->
+                    <div class="recent-card">
+
+                        <div class="card-heading">
+
+                            <span>🕐</span>
+
+                            <div>
+                                <h3>Recent Issues</h3>
+                                <p>Latest issued books</p>
+                            </div>
+
+                        </div>
+
+
+                        <div id="recentIssues">
+
+                            <div class="empty-recent">
+                                No recent issues.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="issue-book.js"></script>
+
+</body>
+</html>

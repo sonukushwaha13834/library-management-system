@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Super Admin Login | Library Management System</title>
+
+    <link rel="stylesheet" href="super-admin-login.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- ==============================
+             MAIN LOGIN CARD
+        =============================== -->
+        <div class="login-card">
+
+            <div class="login-icon">
+                🛡️
+            </div>
+
+            <h1>Super Admin Login</h1>
+
+            <p class="subtitle">
+                Sign in to access the system owner panel
+            </p>
+
+
+            <!-- ==============================
+                 PASSWORD LOGIN SECTION
+            =============================== -->
+            <section id="passwordLoginSection">
+
+                <form id="superAdminLoginForm">
+
+                    <div class="form-group">
+                        <label for="login">
+                            Username or Email
+                        </label>
+
+                        <input
+                            type="text"
+                            id="login"
+                            name="login"
+                            placeholder="Enter username or email"
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group password-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Show password"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="forgotPasswordButton"
+                        class="link-button"
+                    >
+                        Forgot Password?
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Login as Super Admin
+                    </button>
+
+                </form>
+
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+
+                <button
+                    type="button"
+                    id="otpLoginButton"
+                    class="secondary-button"
+                >
+                    📧 Login with Email OTP
+                </button>
+
+            </section>
+
+
+
+            <!-- ==============================
+                 EMAIL OTP LOGIN SECTION
+                 Hidden by default
+            =============================== -->
+            <section
+                id="otpLoginSection"
+                class="auth-section hidden"
+            >
+
+                <h2>Login with Email OTP</h2>
+
+                <p class="section-text">
+                    Enter your registered Super Admin email.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label for="otpLoginEmail">
+                        Super Admin Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="otpLoginEmail"
+                        placeholder="Enter registered email"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="sendLoginOtpButton"
+                    class="primary-button"
+                >
+                    Send Login OTP
+                </button>
+
+
+                <!-- OTP verification -->
+                <div
+                    id="loginOtpVerifySection"
+                    class="hidden otp-verification"
+                >
+
+                    <div class="form-group">
+
+                        <label for="loginOtp">
+                            Enter OTP
+                        </label>
+
+                        <input
+                            type="text"
+                            id="loginOtp"
+                            placeholder="Enter 6-digit OTP"
+                            maxlength="6"
+                            inputmode="numeric"
+                            autocomplete="one-time-code"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="verifyLoginOtpButton"
+                        class="primary-button"
+                    >
+                        Verify OTP & Login
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="backToPasswordLogin"
+                    class="back-button"
+                >
+                    ← Login with Password
+                </button>
+
+            </section>
+
+
+
+            <!-- ==============================
+                 FORGOT PASSWORD SECTION
+                 Hidden by default
+            =============================== -->
+            <section
+                id="forgotPasswordSection"
+                class="auth-section hidden"
+            >
+
+                <h2>Reset Password</h2>
+
+                <p class="section-text">
+                    Enter your registered email to receive a reset OTP.
+                </p>
+
+
+                <!-- Reset email -->
+                <div class="form-group">
+
+                    <label for="resetEmail">
+                        Registered Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="resetEmail"
+                        placeholder="Enter registered email"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="sendResetOtpButton"
+                    class="primary-button"
+                >
+                    Send Reset OTP
+                </button>
+
+
+                <!-- Reset OTP -->
+                <div
+                    id="resetOtpSection"
+                    class="hidden otp-verification"
+                >
+
+                    <div class="form-group">
+
+                        <label for="resetOtp">
+                            Enter OTP
+                        </label>
+
+                        <input
+                            type="text"
+                            id="resetOtp"
+                            placeholder="Enter 6-digit OTP"
+                            maxlength="6"
+                            inputmode="numeric"
+                            autocomplete="one-time-code"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="verifyResetOtpButton"
+                        class="primary-button"
+                    >
+                        Verify OTP
+                    </button>
+
+                </div>
+
+
+                <!-- New password -->
+                <div
+                    id="newPasswordSection"
+                    class="hidden password-reset-section"
+                >
+
+                    <div class="form-group">
+
+                        <label for="newPassword">
+                            New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="newPassword"
+                            placeholder="Enter new password"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="confirmNewPassword">
+                            Confirm New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmNewPassword"
+                            placeholder="Confirm new password"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="resetPasswordButton"
+                        class="primary-button"
+                    >
+                        Reset Password
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="backToLoginButton"
+                    class="back-button"
+                >
+                    ← Back to Login
+                </button>
+
+            </section>
+
+
+            <!-- Security note -->
+            <div class="security-note">
+                🔒 This account is restricted to the system owner.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="super-admin-login.js"></script>
+
+</body>
+</html>
+

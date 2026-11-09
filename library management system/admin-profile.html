@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System | Admin Profile</title>
+
+    <link rel="stylesheet" href="admin-profile.css">
+</head>
+
+<body>
+
+<div class="profile-page">
+
+    <!-- Header -->
+    <header class="profile-header">
+
+        <div>
+            <h1>Admin Profile</h1>
+            <p>Manage your administrator account</p>
+        </div>
+
+        <a href="admin-dashboard.html" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </header>
+
+
+    <!-- Profile Overview -->
+    <section class="profile-overview">
+
+        <div class="profile-avatar-large">
+            A
+        </div>
+
+        <div class="profile-main-info">
+            <h2>Admin</h2>
+            <p>Library Administrator</p>
+
+            <span class="active-status">
+                ● Active
+            </span>
+        </div>
+
+    </section>
+
+
+    <!-- Content -->
+    <div class="profile-content">
+
+        <!-- Personal Information -->
+        <section class="profile-card">
+
+            <div class="card-title">
+                <div>
+                    <h3>Personal Information</h3>
+                    <p>Your administrator account details</p>
+                </div>
+
+                <button class="edit-btn" onclick="enableEdit()">
+                    ✏️ Edit
+                </button>
+            </div>
+
+
+            <div class="details-grid">
+
+                <div class="field">
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        value="Admin"
+                        disabled
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        value="admin"
+                        disabled
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value="admin@library.com"
+                        disabled
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Admin ID</label>
+                    <input
+                        type="text"
+                        value="ADM001"
+                        disabled
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Role</label>
+                    <input
+                        type="text"
+                        value="Administrator"
+                        disabled
+                    >
+                </div>
+
+                <div class="field">
+                    <label>Account Status</label>
+                    <input
+                        type="text"
+                        value="Active"
+                        disabled
+                    >
+                </div>
+
+            </div>
+
+
+            <div class="save-buttons" id="saveButtons">
+
+                <button class="cancel-btn" onclick="cancelEdit()">
+                    Cancel
+                </button>
+
+                <button class="save-btn" onclick="saveProfile()">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Account Information -->
+        <section class="profile-card">
+
+            <div class="card-title">
+                <div>
+                    <h3>Account Information</h3>
+                    <p>Library administrator information</p>
+                </div>
+            </div>
+
+
+            <div class="account-details">
+
+                <div class="account-row">
+                    <div class="account-icon">🆔</div>
+
+                    <div>
+                        <strong>Admin ID</strong>
+                        <span>ADM001</span>
+                    </div>
+                </div>
+
+
+                <div class="account-row">
+                    <div class="account-icon">👤</div>
+
+                    <div>
+                        <strong>Account Type</strong>
+                        <span>Library Administrator</span>
+                    </div>
+                </div>
+
+
+                <div class="account-row">
+                    <div class="account-icon">📅</div>
+
+                    <div>
+                        <strong>Account Created</strong>
+                        <span>January 01, 2026</span>
+                    </div>
+                </div>
+
+
+                <div class="account-row">
+                    <div class="account-icon">🟢</div>
+
+                    <div>
+                        <strong>Status</strong>
+                        <span>Active</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Security -->
+        <section class="profile-card security-card">
+
+            <div class="card-title">
+                <div>
+                    <h3>Security</h3>
+                    <p>Manage your administrator password</p>
+                </div>
+            </div>
+
+
+            <div class="security-content">
+
+                <div class="security-icon">
+                    🔐
+                </div>
+
+                <div class="security-info">
+                    <h4>Password</h4>
+                    <p>
+                        Keep your administrator account secure by
+                        regularly updating your password.
+                    </p>
+                </div>
+
+                <button
+                    class="change-password-btn"
+                    onclick="openPasswordModal()"
+                >
+                    Change Password
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<!-- Change Password Modal -->
+<div class="modal" id="passwordModal">
+
+    <div class="modal-box">
+
+        <button
+            class="close-modal"
+            onclick="closePasswordModal()"
+        >
+            ×
+        </button>
+
+        <h2>Change Password</h2>
+
+        <p class="modal-description">
+            Update your administrator password
+        </p>
+
+
+        <label>Current Password</label>
+        <input
+            type="password"
+            id="currentPassword"
+            placeholder="Enter current password"
+        >
+
+
+        <label>New Password</label>
+        <input
+            type="password"
+            id="newPassword"
+            placeholder="Enter new password"
+        >
+
+
+        <label>Confirm New Password</label>
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm new password"
+        >
+
+
+        <button
+            class="update-password-btn"
+            onclick="updatePassword()"
+        >
+            Update Password
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="admin-profile.js"></script>
+
+</body>
+</html>

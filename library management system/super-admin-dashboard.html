@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Super Admin Dashboard | Library Management System
+    </title>
+
+    <link rel="stylesheet"
+          href="super-admin-dashboard.css">
+
+    <style>
+
+        /* =====================================================
+           NOTIFICATION DROPDOWN
+        ===================================================== */
+
+        .notification-dropdown {
+            position: absolute;
+            right: 92px;
+            top: 70px;
+            width: 340px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.14);
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+        }
+
+        .notification-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .notification-dropdown-header button {
+            border: none;
+            background: none;
+            color: #2563eb;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .notification-item {
+            padding: 13px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+        .notification-item strong {
+            display: block;
+            color: #111827;
+        }
+
+        .notification-item span {
+            display: block;
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .notification-empty {
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+
+        /* =====================================================
+           COLLEGE / ADMIN LIST
+        ===================================================== */
+
+        .sa-list-card {
+            background: #ffffff;
+            border-radius: 16px;
+            margin-top: 18px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .sa-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .sa-list-header h3 {
+            margin: 0 0 5px;
+        }
+
+        .sa-list-header p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .sa-list-count {
+            min-width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .sa-table-wrap {
+            overflow-x: auto;
+        }
+
+        .sa-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        .sa-table th,
+        .sa-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .sa-table th {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #6b7280;
+            background: #f8fafc;
+        }
+
+        .sa-table td {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .sa-table td strong {
+            color: #111827;
+        }
+
+        .sa-status {
+            display: inline-flex;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .sa-status.approved,
+        .sa-status.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .sa-status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .sa-status.rejected,
+        .sa-status.blocked {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .sa-muted {
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           VERIFICATION DOCUMENTS
+        ===================================================== */
+
+        .verification-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .verification-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px;
+            background: #f8fafc;
+        }
+
+        .verification-box h4 {
+            margin: 0 0 10px;
+        }
+
+        .verification-box img {
+            width: 100%;
+            height: 230px;
+            object-fit: contain;
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .file-loading {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+        }
+
+
+        /* =====================================================
+           CLICKABLE STAT CARDS
+        ===================================================== */
+
+        .clickable-stat {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .clickable-stat:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .notification-dropdown {
+                right: 15px;
+                width: calc(100vw - 30px);
+            }
+
+            .verification-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            📚
+        </div>
+
+        <div>
+
+            <h2>
+                LIBRARY
+            </h2>
+
+            <span>
+                SYSTEM
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="sidebar-nav">
+
+
+        <!-- DASHBOARD -->
+
+        <a href="#dashboard"
+           class="nav-item active"
+           data-section="dashboard">
+
+            <span class="nav-icon">
+                ▦
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- COLLEGES -->
+
+        <a href="#colleges"
+           class="nav-item"
+           data-section="colleges">
+
+            <span class="nav-icon">
+                🏫
+            </span>
+
+            <span>
+                Colleges
+            </span>
+
+        </a>
+
+
+        <!-- ADMIN REQUESTS -->
+
+        <a href="#admin-requests"
+           class="nav-item"
+           data-section="admin-requests">
+
+            <span class="nav-icon">
+                📋
+            </span>
+
+            <span>
+                Admin Requests
+            </span>
+
+            <span class="request-badge"
+                  id="sidebarPendingCount">
+
+                0
+
+            </span>
+
+        </a>
+
+
+        <!-- COLLEGE ADMINS -->
+
+        <a href="#college-admins"
+           class="nav-item"
+           data-section="college-admins">
+
+            <span class="nav-icon">
+                👨‍💼
+            </span>
+
+            <span>
+                College Admins
+            </span>
+
+        </a>
+
+
+        <!-- SETTINGS -->
+
+        <a href="#settings"
+           class="nav-item"
+           data-section="settings">
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- LOGOUT -->
+
+    <div class="sidebar-bottom">
+
+        <button id="logoutButton"
+                class="logout-button">
+
+            <span>
+                ↪
+            </span>
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="top-header">
+
+
+        <div class="header-left">
+
+
+            <!-- MOBILE MENU -->
+
+            <button class="mobile-menu"
+                    id="mobileMenu">
+
+                ☰
+
+            </button>
+
+
+            <div>
+
+                <h1 id="pageTitle">
+
+                    Super Admin Dashboard
+
+                </h1>
+
+                <p>
+
+                    System Owner Control Panel
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="header-right">
+
+
+            <!-- =================================================
+                 NOTIFICATION
+            ================================================== -->
+
+            <button class="notification-button"
+                    id="notificationButton">
+
+                🔔
+
+                <span id="notificationBadge">
+
+                    0
+
+                </span>
+
+            </button>
+
+
+            <!-- NOTIFICATION DROPDOWN -->
+
+            <div class="notification-dropdown"
+                 id="notificationDropdown">
+
+
+                <div class="notification-dropdown-header">
+
+
+                    <strong>
+
+                        Notifications
+
+                    </strong>
+
+
+                    <button type="button"
+                            id="notificationViewAll">
+
+                        View Requests
+
+                    </button>
+
+
+                </div>
+
+
+                <div id="notificationList">
+
+                    <div class="notification-empty">
+
+                        No pending notifications.
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROFILE
+            ================================================== -->
+
+            <div class="profile-wrapper">
+
+
+                <button class="profile-button"
+                        id="profileButton">
+
+
+                    <div class="profile-avatar">
+
+                        SA
+
+                    </div>
+
+
+                    <div class="profile-info">
+
+
+                        <strong>
+
+                            Super Admin
+
+                        </strong>
+
+
+                        <span>
+
+                            System Owner
+
+                        </span>
+
+
+                    </div>
+
+
+                    <span class="dropdown-arrow">
+
+                        ▾
+
+                    </span>
+
+
+                </button>
+
+
+
+                <!-- PROFILE DROPDOWN -->
+
+                <div class="profile-dropdown"
+                     id="profileDropdown">
+
+
+                    <div class="dropdown-header">
+
+
+                        <div class="dropdown-avatar">
+
+                            SA
+
+                        </div>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                Super Admin
+
+                            </strong>
+
+
+                            <span>
+
+                                System Owner
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button data-section="settings">
+
+                        ⚙️
+
+                        Settings
+
+                    </button>
+
+
+                    <button id="dropdownLogout">
+
+                        ↪️
+
+                        Logout
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ===================================================== -->
+
+    <section id="dashboard"
+             class="content-section active-section">
+
+
+        <!-- WELCOME CARD -->
+
+        <div class="welcome-card">
+
+
+            <div>
+
+
+                <span class="welcome-label">
+
+                    SYSTEM OWNER
+
+                </span>
+
+
+                <h2>
+
+                    Welcome, Super Admin 👋
+
+                </h2>
+
+
+                <p>
+
+                    Manage colleges and college administrators
+                    from one central dashboard.
+
+                </p>
+
+
+            </div>
+
+
+            <div class="welcome-icon">
+
+                🏛️
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <div class="stats-grid">
+
+
+            <!-- TOTAL COLLEGES -->
+
+            <div class="stat-card"
+                 id="totalCollegesCard">
+
+
+                <div class="stat-icon blue">
+
+                    🏫
+
+                </div>
+
+
+                <div>
+
+
+                    <span>
+
+                        Total Colleges
+
+                    </span>
+
+
+                    <h3 id="totalColleges">
+
+                        0
+
+                    </h3>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- PENDING COLLEGES -->
+
+            <div class="stat-card"
+                 id="pendingCollegesCard">
+
+
+                <div class="stat-icon orange">
+
+                    ⏳
+
+                </div>
+
+
+                <div>
+
+
+                    <span>
+
+                        Pending Colleges
+
+                    </span>
+
+
+                    <h3 id="pendingColleges">
+
+                        0
+
+                    </h3>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- APPROVED COLLEGES -->
+
+            <div class="stat-card"
+                 id="approvedCollegesCard">
+
+
+                <div class="stat-icon green">
+
+                    ✓
+
+                </div>
+
+
+                <div>
+
+
+                    <span>
+
+                        Approved Colleges
+
+                    </span>
+
+
+                    <h3 id="approvedColleges">
+
+                        0
+
+                    </h3>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- COLLEGE ADMINS -->
+
+            <div class="stat-card"
+                 id="totalAdminsCard">
+
+
+                <div class="stat-icon purple">
+
+                    👨‍💼
+
+                </div>
+
+
+                <div>
+
+
+                    <span>
+
+                        College Admins
+
+                    </span>
+
+
+                    <h3 id="totalAdmins">
+
+                        0
+
+                    </h3>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             RECENT REQUESTS
+        ================================================== -->
+
+        <div class="section-card">
+
+
+            <div class="section-header">
+
+
+                <div>
+
+
+                    <h2>
+
+                        Recent Admin Requests
+
+                    </h2>
+
+
+                    <p>
+
+                        Review recent college administrator
+                        applications.
+
+                    </p>
+
+
+                </div>
+
+
+                <button class="view-all-button"
+                        data-section="admin-requests">
+
+                    View All
+
+                </button>
+
+
+            </div>
+
+
+
+            <div class="request-table-wrapper">
+
+
+                <table class="request-table">
+
+
+                    <thead>
+
+
+                        <tr>
+
+
+                            <th>
+
+                                Applicant
+
+                            </th>
+
+
+                            <th>
+
+                                College
+
+                            </th>
+
+
+                            <th>
+
+                                Official Email
+
+                            </th>
+
+
+                            <th>
+
+                                Status
+
+                            </th>
+
+
+                            <th>
+
+                                Action
+
+                            </th>
+
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody id="recentRequests">
+
+
+                        <tr>
+
+
+                            <td colspan="5"
+                                class="empty-state">
+
+                                Loading requests...
+
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         COLLEGES
+    ===================================================== -->
+
+    <section id="colleges"
+             class="content-section">
+
+
+        <div class="page-heading">
+
+
+            <div>
+
+
+                <span class="section-label">
+
+                    COLLEGE MANAGEMENT
+
+                </span>
+
+
+                <h2>
+
+                    Colleges
+
+                </h2>
+
+
+                <p>
+
+                    View approved colleges and pending
+                    college registrations.
+
+                </p>
+
+
+            </div>
+
+
+            <button class="refresh-button"
+                    id="refreshColleges">
+
+                ↻ Refresh
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- FILTER -->
+
+        <div class="filter-card">
+
+
+            <div class="search-box">
+
+
+                <span>
+
+                    🔍
+
+                </span>
+
+
+                <input
+                    type="text"
+                    id="collegeSearch"
+                    placeholder="Search college name or College ID..."
+                >
+
+
+            </div>
+
+
+
+            <select id="collegeStatusFilter">
+
+
+                <option value="All">
+
+                    All Approved Colleges
+
+                </option>
+
+
+                <option value="Pending">
+
+                    Pending Colleges
+
+                </option>
+
+
+                <option value="Approved">
+
+                    Approved Colleges
+
+                </option>
+
+
+            </select>
+
+
+        </div>
+
+
+
+        <!-- COLLEGE LIST -->
+
+        <div class="sa-list-card">
+
+
+            <div class="sa-list-header">
+
+
+                <div>
+
+
+                    <h3 id="collegeListTitle">
+
+                        Approved Colleges
+
+                    </h3>
+
+
+                    <p id="collegeListSubtitle">
+
+                        Only approved colleges are counted
+                        as Total Colleges.
+
+                    </p>
+
+
+                </div>
+
+
+                <span class="sa-list-count"
+                      id="collegeListCount">
+
+                    0
+
+                </span>
+
+
+            </div>
+
+
+
+            <div class="sa-table-wrap">
+
+
+                <table class="sa-table">
+
+
+                    <thead>
+
+
+                        <tr>
+
+
+                            <th>
+
+                                College ID
+
+                            </th>
+
+
+                            <th>
+
+                                College Name
+
+                            </th>
+
+
+                            <th>
+
+                                Official Email
+
+                            </th>
+
+
+                            <th>
+
+                                Admin
+
+                            </th>
+
+
+                            <th>
+
+                                Status
+
+                            </th>
+
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody id="collegeListBody">
+
+
+                        <tr>
+
+
+                            <td colspan="5"
+                                class="empty-state">
+
+                                Loading colleges...
+
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ADMIN REQUESTS
+    ===================================================== -->
+
+    <section id="admin-requests"
+             class="content-section">
+
+
+        <div class="page-heading">
+
+
+            <div>
+
+
+                <span class="section-label">
+
+                    ADMINISTRATION
+
+                </span>
+
+
+                <h2>
+
+                    College Admin Requests
+
+                </h2>
+
+
+                <p>
+
+                    Review and approve college administrator
+                    registration requests.
+
+                </p>
+
+
+            </div>
+
+
+            <button class="refresh-button"
+                    id="refreshRequests">
+
+                ↻ Refresh
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- FILTER -->
+
+        <div class="filter-card">
+
+
+            <div class="search-box">
+
+
+                <span>
+
+                    🔍
+
+                </span>
+
+
+                <input
+                    type="text"
+                    id="requestSearch"
+                    placeholder="Search applicant or college..."
+                >
+
+
+            </div>
+
+
+
+            <select id="statusFilter">
+
+
+                <option value="All">
+
+                    All Requests
+
+                </option>
+
+
+                <option value="Pending">
+
+                    Pending
+
+                </option>
+
+
+                <option value="Approved">
+
+                    Approved
+
+                </option>
+
+
+                <option value="Rejected">
+
+                    Rejected
+
+                </option>
+
+
+            </select>
+
+
+        </div>
+
+
+
+        <!-- REQUEST LIST -->
+
+        <div class="admin-request-list"
+             id="adminRequestList">
+
+
+            <div class="loading-card">
+
+                Loading admin requests...
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         COLLEGE ADMINS
+    ===================================================== -->
+
+    <section id="college-admins"
+             class="content-section">
+
+
+        <div class="page-heading">
+
+
+            <div>
+
+
+                <span class="section-label">
+
+                    ADMIN MANAGEMENT
+
+                </span>
+
+
+                <h2>
+
+                    College Admins
+
+                </h2>
+
+
+                <p>
+
+                    View administrators assigned to approved
+                    colleges.
+
+                </p>
+
+
+            </div>
+
+
+            <button class="refresh-button"
+                    id="refreshAdmins">
+
+                ↻ Refresh
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="filter-card">
+
+
+            <div class="search-box">
+
+
+                <span>
+
+                    🔍
+
+                </span>
+
+
+                <input
+                    type="text"
+                    id="adminSearch"
+                    placeholder="Search admin, college, email or Admin ID..."
+                >
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ADMIN LIST -->
+
+        <div class="sa-list-card">
+
+
+            <div class="sa-list-header">
+
+
+                <div>
+
+
+                    <h3>
+
+                        College Administrators
+
+                    </h3>
+
+
+                    <p>
+
+                        Administrators created after Super Admin
+                        approval.
+
+                    </p>
+
+
+                </div>
+
+
+                <span class="sa-list-count"
+                      id="adminListCount">
+
+                    0
+
+                </span>
+
+
+            </div>
+
+
+
+            <div class="sa-table-wrap">
+
+
+                <table class="sa-table">
+
+
+                    <thead>
+
+
+                        <tr>
+
+
+                            <th>
+
+                                Admin ID
+
+                            </th>
+
+
+                            <th>
+
+                                Name
+
+                            </th>
+
+
+                            <th>
+
+                                College ID
+
+                            </th>
+
+
+                            <th>
+
+                                Email
+
+                            </th>
+
+
+                            <th>
+
+                                Status
+
+                            </th>
+
+
+                        </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody id="adminListBody">
+
+
+                        <tr>
+
+
+                            <td colspan="5"
+                                class="empty-state">
+
+                                Loading administrators...
+
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SETTINGS
+    ===================================================== -->
+
+    <section id="settings"
+             class="content-section">
+
+
+        <div class="page-heading">
+
+
+            <div>
+
+
+                <span class="section-label">
+
+                    SYSTEM
+
+                </span>
+
+
+                <h2>
+
+                    Settings
+
+                </h2>
+
+
+                <p>
+
+                    Configure Super Admin system preferences.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="settings-card">
+
+
+            <!-- SYSTEM ADMINISTRATION -->
+
+            <div class="setting-row">
+
+
+                <div>
+
+
+                    <h3>
+
+                        System Administration
+
+                    </h3>
+
+
+                    <p>
+
+                        Super Admin controls the registration
+                        and approval of colleges.
+
+                    </p>
+
+
+                </div>
+
+
+                <span class="setting-status">
+
+                    Active
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- COLLEGE ISOLATION -->
+
+            <div class="setting-row">
+
+
+                <div>
+
+
+                    <h3>
+
+                        College Isolation
+
+                    </h3>
+
+
+                    <p>
+
+                        Each approved college will have its own
+                        isolated library data.
+
+                    </p>
+
+
+                </div>
+
+
+                <span class="setting-status">
+
+                    Protected
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- ADMIN APPROVAL -->
+
+            <div class="setting-row">
+
+
+                <div>
+
+
+                    <h3>
+
+                        Admin Approval
+
+                    </h3>
+
+
+                    <p>
+
+                        College administrators require manual
+                        Super Admin approval.
+
+                    </p>
+
+
+                </div>
+
+
+                <span class="setting-status">
+
+                    Required
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     REQUEST DETAILS MODAL
+===================================================== -->
+
+<div class="modal-overlay"
+     id="requestModal">
+
+
+    <div class="request-modal">
+
+
+        <!-- CLOSE -->
+
+        <button class="modal-close"
+                id="closeModal">
+
+            ×
+
+        </button>
+
+
+        <!-- ICON -->
+
+        <div class="modal-icon">
+
+            📋
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h2 id="modalTitle">
+
+            Admin Request
+
+        </h2>
+
+
+        <!-- DETAILS -->
+
+        <div class="modal-details"
+             id="modalDetails">
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="modal-actions"
+             id="modalActions">
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="super-admin-dashboard.js"></script>
+
+
+</body>
+
+</html>

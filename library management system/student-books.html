@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Books | Library Management System</title>
+
+    <link rel="stylesheet" href="student-books.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">📚</div>
+
+            <div>
+                <h2>Library</h2>
+                <span>Management System</span>
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="student.html" class="nav-link">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="student-books.html" class="nav-link active">
+                <span>📚</span>
+                <span>Browse Books</span>
+            </a>
+
+            <a href="my-books.html" class="nav-link">
+                <span>📖</span>
+                <span>My Books</span>
+            </a>
+
+
+            <p class="menu-title">MY LIBRARY</p>
+
+            <a href="book-history.html" class="nav-link">
+                <span>↩️</span>
+                <span>Book History</span>
+            </a>
+
+            <!-- <a href="student-fines.html" class="nav-link">
+                <span>💰</span>
+                <span>My Fines</span>
+            </a>
+
+            <a href="notifications.html" class="nav-link">
+                <span>🔔</span>
+                <span>Notifications</span>
+            </a> -->
+
+
+            <!-- <p class="menu-title">ACCOUNT</p>
+
+            <a href="student-profile.html" class="nav-link">
+                <span>👤</span>
+                <span>My Profile</span>
+            </a> -->
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html" class="logout">
+                <span>🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <div class="mobile-menu">
+                    ☰
+                </div>
+
+                <div class="page-title">
+
+                    <h1>Browse Books</h1>
+
+                    <p>Library Management System</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button class="notification">
+                    🔔
+                    <span></span>
+                </button>
+
+
+                <div class="student-profile">
+
+                    <div class="profile-avatar">
+                        S
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong>Sonu</strong>
+
+                        <span>Student</span>
+
+                    </div>
+
+                    <b>⌄</b>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE BODY ================= -->
+
+        <div class="page-body">
+
+
+            <!-- INTRO -->
+
+            <div class="page-intro">
+
+                <div>
+
+                    <span class="section-label">
+                        LIBRARY COLLECTION
+                    </span>
+
+                    <h2>Find Your Next Book</h2>
+
+                    <p>
+                        Search and explore books available in the library.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SEARCH AREA ================= -->
+
+            <section class="search-card">
+
+                <div class="search-box">
+
+                    <span>🔍</span>
+
+                    <input
+                        type="text"
+                        placeholder="Search by book title, author or ISBN...">
+
+                </div>
+
+
+                <select class="category-select">
+
+                    <option>All Categories</option>
+                    <option>Computer Science</option>
+                    <option>Programming</option>
+                    <option>Database</option>
+                    <option>Networking</option>
+                    <option>Mathematics</option>
+
+                </select>
+
+
+                <select class="availability-select">
+
+                    <option>All Books</option>
+                    <option>Available</option>
+                    <option>Issued</option>
+
+                </select>
+
+
+                <button class="search-btn">
+                    Search
+                </button>
+
+            </section>
+
+
+            <!-- ================= CATEGORY BUTTONS ================= -->
+
+            <div class="categories">
+
+                <button class="category active">
+                    All Books
+                </button>
+
+                <button class="category">
+                    Computer Science
+                </button>
+
+                <button class="category">
+                    Programming
+                </button>
+
+                <button class="category">
+                    Database
+                </button>
+
+                <button class="category">
+                    Networking
+                </button>
+
+            </div>
+
+
+            <!-- ================= BOOK HEADER ================= -->
+
+            <div class="books-heading">
+
+                <div>
+
+                    <h3>
+                        Available Books
+                    </h3>
+
+                    <span>
+                        Showing 8 books
+                    </span>
+
+                </div>
+
+
+                <select class="sort-select">
+
+                    <option>Sort: Most Popular</option>
+                    <option>Sort: A-Z</option>
+                    <option>Sort: Recently Added</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ================= BOOK GRID ================= -->
+            
+            <div class="books-grid">
+              <!-- Books are loaded from backend -->
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+</div>
+<script src="student-books.js"></script>
+</body>
+</html>

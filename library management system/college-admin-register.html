@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>College Admin Registration | Library Management System</title>
+
+    <link rel="stylesheet" href="college-admin-register.css">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <div class="registration-card">
+
+            <!-- HEADER -->
+            <div class="registration-header">
+
+                <div class="logo">
+                    📚
+                </div>
+
+                <h1>Register Your College</h1>
+
+                <p>
+                    Apply for College Admin access to the Library Management System
+                </p>
+
+            </div>
+
+
+            <!-- FORM -->
+            <form id="adminRegistrationForm">
+
+                <!-- REQUEST ID -->
+                <input
+                    type="hidden"
+                    id="requestId"
+                    name="requestId"
+                >
+
+
+                <!-- COLLEGE DETAILS -->
+                <div class="section-title">
+                    <span>1</span>
+                    College Details
+                </div>
+
+                <div class="form-group">
+
+                    <label for="collegeName">
+                        College Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="collegeName"
+                        name="collegeName"
+                        placeholder="Enter official college name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- APPLICANT DETAILS -->
+                <div class="section-title">
+                    <span>2</span>
+                    Applicant Details
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="applicantName">
+                            Applicant Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="applicantName"
+                            name="applicantName"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="designation">
+                            Designation
+                        </label>
+
+                        <input
+                            type="text"
+                            id="designation"
+                            name="designation"
+                            placeholder="e.g. Librarian"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter phone number"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL VERIFICATION -->
+                <div class="section-title">
+                    <span>3</span>
+                    Official Email Verification
+                </div>
+
+                <div class="form-group">
+
+                    <label for="officialEmail">
+                        Official College Email
+                    </label>
+
+                    <div class="email-row">
+
+                        <input
+                            type="email"
+                            id="officialEmail"
+                            name="officialEmail"
+                            placeholder="college@edu.in"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            id="sendOtpBtn"
+                            class="secondary-btn"
+                        >
+                            Send OTP
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="otp-area"
+                    id="otpArea"
+                    style="display:none;"
+                >
+
+                    <div class="form-group">
+
+                        <label for="otp">
+                            Enter OTP
+                        </label>
+
+                        <div class="email-row">
+
+                            <input
+                                type="text"
+                                id="otp"
+                                maxlength="6"
+                                placeholder="Enter 6-digit OTP"
+                            >
+
+                            <button
+                                type="button"
+                                id="verifyOtpBtn"
+                                class="verify-btn"
+                            >
+                                Verify OTP
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <p
+                        id="otpMessage"
+                        class="otp-message"
+                    ></p>
+
+                </div>
+
+
+                <!-- DOCUMENTS -->
+                <div class="section-title">
+                    <span>4</span>
+                    Verification Documents
+                </div>
+
+                <div class="form-row">
+
+                    <div class="upload-box">
+
+                        <label for="photo">
+                            Applicant Photo
+                        </label>
+
+                        <input
+                            type="file"
+                            id="photo"
+                            name="photo"
+                            accept=".jpg,.jpeg,.png"
+                            required
+                        >
+
+                        <small>
+                            JPG, JPEG or PNG — Max 5 MB
+                        </small>
+
+                    </div>
+
+
+                    <div class="upload-box">
+
+                        <label for="staffIdCard">
+                            College Staff ID Card
+                        </label>
+
+                        <input
+                            type="file"
+                            id="staffIdCard"
+                            name="staffIdCard"
+                            accept=".jpg,.jpeg,.png"
+                            required
+                        >
+
+                        <small>
+                            JPG, JPEG or PNG — Max 5 MB
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+                <div
+                    id="statusMessage"
+                    class="status-message"
+                ></div>
+
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    id="submitBtn"
+                    class="submit-btn"
+                >
+                    Submit Registration Request
+                </button>
+
+
+                <p class="login-link">
+                    Already an Admin?
+                    <a href="index.html">
+                        Go to Login
+                    </a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="college-admin-register.js"></script>
+
+</body>
+</html>

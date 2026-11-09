@@ -1,0 +1,1628 @@
+/* =========================================================
+   LIBRARY MANAGEMENT SYSTEM - BOOKS PAGE
+   MATCHED WITH CURRENT book.html
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 245px;
+    height: 100vh;
+
+    background: #111827;
+    color: #ffffff;
+
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Sidebar Header */
+
+.sidebar-header {
+    height: 85px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 22px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    flex-shrink: 0;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    margin-right: 12px;
+
+    flex-shrink: 0;
+}
+
+.logo-text h2 {
+    font-size: 17px;
+    letter-spacing: 1px;
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.logo-text span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    color: #9ca3af;
+}
+
+
+/* =========================================================
+   SIDEBAR NAVIGATION
+   ========================================================= */
+
+.sidebar-nav {
+    padding: 22px 14px;
+
+    flex: 1;
+
+    overflow-y: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 11px 13px;
+
+    margin-bottom: 5px;
+
+    color: #cbd5e1;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    transition: 0.2s ease;
+}
+
+.nav-link span:first-child {
+    width: 22px;
+
+    text-align: center;
+
+    font-size: 17px;
+
+    flex-shrink: 0;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.07);
+
+    color: #ffffff;
+}
+
+.nav-link.active {
+    color: #ffffff;
+
+    background: #1769ff;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 5px 15px rgba(23, 105, 255, 0.20);
+}
+
+
+/* Sidebar Bottom */
+
+.sidebar-bottom {
+    padding: 15px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    flex-shrink: 0;
+}
+
+.logout-link {
+    color: #fca5a5;
+}
+
+.logout-link:hover {
+    background: rgba(239, 68, 68, 0.1);
+
+    color: #fecaca;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    margin-left: 245px;
+
+    min-height: 100vh;
+
+    background: #f5f7fb;
+}
+
+
+/* =========================================================
+   TOP HEADER
+   ========================================================= */
+
+.top-header {
+    height: 85px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 500;
+}
+
+.header-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.header-left h1 {
+    font-size: 32px;
+
+    line-height: 1.1;
+
+    color: #111827;
+
+    margin-bottom: 4px;
+}
+
+.header-left p {
+    font-size: 14px;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+   ========================================================= */
+
+.mobile-menu-btn {
+    display: none;
+
+    border: 1px solid #e5e7eb;
+
+    background: #ffffff;
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 8px;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    color: #374151;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   HEADER RIGHT
+   ========================================================= */
+
+.header-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+/* Notification */
+
+.notification-btn {
+    position: relative;
+
+    width: 42px;
+
+    height: 42px;
+
+    border: 1px solid #e5e7eb;
+
+    background: #ffffff;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.notification-btn:hover {
+    background: #f8fafc;
+
+    border-color: #d1d5db;
+}
+
+.notification-dot {
+    position: absolute;
+
+    top: 7px;
+
+    right: 8px;
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #ef4444;
+
+    border: 2px solid #ffffff;
+}
+
+
+/* Admin Profile */
+
+.admin-profile {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 5px;
+
+    border-radius: 10px;
+}
+
+.admin-avatar {
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.admin-info {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.admin-info strong {
+    color: #1f2937;
+
+    font-size: 13px;
+}
+
+.admin-info span {
+    color: #9ca3af;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+
+.page-content {
+    padding: 30px;
+}
+
+
+/* =========================================================
+   PAGE TOP
+   ========================================================= */
+
+.page-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.page-top h2 {
+    font-size: 24px;
+
+    color: #111827;
+
+    margin-bottom: 5px;
+}
+
+.page-top p {
+    font-size: 13px;
+
+    color: #9ca3af;
+}
+
+
+/* Add Book Button */
+
+.add-book-btn {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.20);
+
+    transition: 0.2s ease;
+}
+
+.add-book-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+}
+
+.add-book-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-height: 100px;
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.03);
+}
+
+.stat-icon {
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+
+    background: #eff6ff;
+
+    flex-shrink: 0;
+}
+
+.stat-info span {
+    display: block;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    margin-bottom: 5px;
+}
+
+.stat-info strong {
+    display: block;
+
+    color: #111827;
+
+    font-size: 24px;
+}
+
+
+/* =========================================================
+   SEARCH + FILTERS
+   ========================================================= */
+
+.filter-section {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    padding: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.03);
+}
+
+.search-box {
+    flex: 1;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 0 13px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+}
+
+.search-box span {
+    font-size: 15px;
+
+    color: #9ca3af;
+}
+
+.search-box input {
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #374151;
+
+    font-size: 13px;
+}
+
+.search-box input::placeholder {
+    color: #9ca3af;
+}
+
+.filter-box {
+    display: flex;
+
+    gap: 10px;
+}
+
+.filter-box select {
+    height: 42px;
+
+    min-width: 170px;
+
+    padding: 0 12px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 13px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.filter-box select:focus {
+    border-color: #2563eb;
+}
+
+
+/* =========================================================
+   BOOK TABLE
+   ========================================================= */
+
+.table-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px rgba(15, 23, 42, 0.03);
+}
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    min-width: 950px;
+
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f8fafc;
+}
+
+th {
+    text-align: left;
+
+    padding: 13px 16px;
+
+    color: #6b7280;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+    padding: 14px 16px;
+
+    border-bottom: 1px solid #f0f2f5;
+
+    color: #4b5563;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background: #fafcff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   BOOK COVER
+   IMPORTANT: PREVENT HUGE IMAGE
+   ========================================================= */
+
+.book-cover-thumb {
+    width: 50px !important;
+
+    height: 65px !important;
+
+    min-width: 50px !important;
+
+    max-width: 50px !important;
+
+    min-height: 65px !important;
+
+    max-height: 65px !important;
+
+    object-fit: contain !important;
+
+    display: block;
+
+    flex-shrink: 0;
+
+    border-radius: 5px;
+
+    border: 1px solid #e2e8f0;
+
+    background: #f8fafc;
+}
+
+.no-cover {
+    width: 50px;
+
+    height: 65px;
+
+    min-width: 50px;
+
+    min-height: 65px;
+
+    max-width: 50px;
+
+    max-height: 65px;
+
+    flex-shrink: 0;
+
+    border-radius: 5px;
+
+    background: #eff6ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-badge {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-badge.available {
+    background: #ecfdf5;
+
+    color: #059669;
+}
+
+.status-badge.issued {
+    background: #fff7ed;
+
+    color: #ea580c;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.action-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    flex-wrap: nowrap;
+}
+
+.edit-btn,
+.delete-btn {
+    width: 32px;
+
+    height: 32px;
+
+    min-width: 32px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+
+    padding: 0;
+}
+
+.edit-btn {
+    border: 1px solid #dbeafe;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+}
+
+.edit-btn:hover {
+    background: #dbeafe;
+}
+
+.delete-btn {
+    border: 1px solid #fee2e2;
+
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.pagination {
+    min-height: 65px;
+
+    padding: 12px 20px;
+
+    border-top: 1px solid #eef0f3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+#paginationText {
+    color: #9ca3af;
+
+    font-size: 11px;
+}
+
+#paginationButtons {
+    display: flex;
+
+    gap: 5px;
+}
+
+#paginationButtons button {
+    min-width: 32px;
+
+    height: 32px;
+
+    padding: 0 8px;
+
+    border: 1px solid #e5e7eb;
+
+    background: #ffffff;
+
+    color: #6b7280;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+}
+
+#paginationButtons button:hover {
+    background: #f3f4f6;
+}
+
+#paginationButtons button.active {
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border-color: #2563eb;
+}
+
+#paginationButtons button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(15, 23, 42, 0.55);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 2000;
+}
+
+.modal {
+    width: 100%;
+
+    max-width: 620px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.20);
+
+    animation: modalOpen 0.2s ease;
+}
+
+@keyframes modalOpen {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* Modal Header */
+
+.modal-header {
+    padding: 22px 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+.modal-header h2 {
+    font-size: 19px;
+
+    color: #111827;
+
+    margin: 0;
+}
+
+.close-modal {
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    background: #f3f4f6;
+
+    color: #6b7280;
+
+    border-radius: 7px;
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.close-modal:hover {
+    background: #e5e7eb;
+
+    color: #374151;
+}
+
+
+/* =========================================================
+   MODAL FORM
+   ========================================================= */
+
+#addBookForm,
+#editBookForm {
+    padding: 22px 24px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    height: 43px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dfe3e8;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 13px;
+
+    transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+/* File input */
+
+.form-group input[type="file"] {
+    height: auto;
+
+    padding: 9px 10px;
+
+    cursor: pointer;
+}
+
+
+/* Cover Help */
+
+.cover-help {
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+
+/* Cover Preview */
+
+.cover-preview {
+    width: 130px;
+
+    height: 170px;
+
+    margin-top: 10px;
+
+    border: 1px solid #dbe3ec;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    display: none;
+
+    background: #f8fafc;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.cover-preview img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   MODAL ACTIONS
+   ========================================================= */
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 23px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #eef0f3;
+}
+
+.cancel-btn,
+.save-btn {
+    min-width: 95px;
+
+    height: 40px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.cancel-btn {
+    border: 1px solid #e5e7eb;
+
+    background: #ffffff;
+
+    color: #6b7280;
+}
+
+.cancel-btn:hover {
+    background: #f8fafc;
+}
+
+.save-btn {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.save-btn:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================================================
+   ADMIN PROFILE MODAL
+   ========================================================= */
+
+#admin-profile-modal .modal {
+    max-width: 500px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.sidebar-nav::-webkit-scrollbar,
+.table-wrapper::-webkit-scrollbar,
+.modal::-webkit-scrollbar {
+    width: 6px;
+
+    height: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb,
+.table-wrapper::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track,
+.table-wrapper::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .filter-section {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .filter-box {
+        width: 100%;
+    }
+
+    .filter-box select {
+        flex: 1;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+        width: 225px;
+
+        transform: translateX(-100%);
+
+        transition:
+            transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .top-header {
+        height: 75px;
+
+        padding: 0 18px;
+    }
+
+    .header-left h1 {
+        font-size: 24px;
+    }
+
+    .header-left p {
+        font-size: 10px;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+    .page-content {
+        padding: 20px 15px;
+    }
+
+    .page-top {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .page-top h2 {
+        font-size: 21px;
+    }
+
+    .add-book-btn {
+        width: 100%;
+    }
+
+    .filter-section {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .filter-box {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .filter-box select {
+        width: 100%;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 15px;
+
+        gap: 10px;
+    }
+
+    .stat-icon {
+        width: 40px;
+
+        height: 40px;
+
+        font-size: 17px;
+    }
+
+    .stat-info strong {
+        font-size: 20px;
+    }
+
+    .pagination {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        padding: 15px;
+    }
+
+    .modal {
+        max-width: 100%;
+
+        max-height: 92vh;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    .header-right {
+        gap: 7px;
+    }
+
+    .notification-btn {
+        width: 38px;
+
+        height: 38px;
+    }
+
+    .admin-avatar {
+        width: 36px;
+
+        height: 36px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        min-height: 82px;
+    }
+
+    .modal-overlay {
+        padding: 12px;
+    }
+
+    .modal {
+        max-height: 94vh;
+
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 18px;
+    }
+
+    #addBookForm,
+    #editBookForm {
+        padding: 18px;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .top-header {
+        padding: 0 12px;
+    }
+
+    .page-content {
+        padding: 15px 10px;
+    }
+
+    .header-left h1 {
+        font-size: 20px;
+    }
+
+    .notification-btn {
+        display: none;
+    }
+}
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.admin-profile .profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.admin-profile .arrow {
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* ADMIN DROPDOWN */
+
+.admin-profile-menu {
+    position: fixed;
+    top: 70px;
+    right: 25px;
+
+    width: 190px;
+    background: white;
+
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    padding: 8px;
+
+    display: none;
+    z-index: 10000;
+}
+
+.admin-profile-menu.show {
+    display: block;
+}
+
+.admin-profile-menu button,
+.admin-profile-menu a {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px 12px;
+
+    border: none;
+    background: transparent;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+    color: #334155;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+.admin-profile-menu button:hover,
+.admin-profile-menu a:hover {
+    background: #f1f5f9;
+}
+
+.admin-profile-menu a:last-child {
+    color: #ef4444;
+}
+/* ================================
+   NOTIFICATION BELL - NO BOX
+================================ */
+
+.notification {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    padding: 5px !important;
+    margin: 0;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.notification:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.notification:focus,
+.notification:active {
+    outline: none !important;
+    box-shadow: none !important;
+}

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Students | Library Management System</title>
+
+    <link rel="stylesheet" href="students.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+
+            <div>
+                <h2>Library</h2>
+                <span>Management System</span>
+            </div>
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="menu-title">MAIN MENU</p>
+
+            <a href="admin-dashboard.html" class="nav-link">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="book.html" class="nav-link">
+                <span>📚</span>
+                <span>Books</span>
+            </a>
+
+            <a href="students.html" class="nav-link active">
+                <span>👨‍🎓</span>
+                <span>Students</span>
+            </a>
+
+
+            <p class="menu-title">LIBRARY</p>
+
+            <a href="issue-book.html" class="nav-link">
+                <span>📤</span>
+                <span>Issue Book</span>
+            </a>
+
+            <a href="return-book.html" class="nav-link">
+                <span>↩️</span>
+                <span>Return Book</span>
+            </a>
+
+            <a href="fines.html" class="nav-link">
+                <span>💰</span>
+                <span>Fines</span>
+            </a>
+
+
+            <p class="menu-title">SYSTEM</p>
+
+            <a href="reports.html" class="nav-link">
+                <span>📊</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html" class="logout">
+                <span>🚪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    onclick="toggleSidebar()" >
+                    ☰
+                </button>
+
+                <div class="page-title">
+
+                    <h1>Manage Students</h1>
+
+                    <p>Library Management System</p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button
+                    type="button"
+                    class="notification">
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+
+              <button
+    type="button"
+    class="admin-profile"
+    onclick="toggleAdminMenu(event)">
+
+    <div class="profile-avatar" id="adminAvatar">
+        A
+    </div>
+
+    <div class="profile-info">
+
+        <strong id="adminName">
+            Admin
+        </strong>
+
+        <span>
+            Library Administrator
+        </span>
+
+    </div>
+
+    <b>⌄</b>
+
+</button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= PAGE BODY ================= -->
+
+        <div class="page-body">
+
+
+            <!-- ================= PAGE INTRO ================= -->
+
+            <div class="page-intro">
+
+                <div>
+
+                    <span class="section-label">
+                        STUDENT MANAGEMENT
+                    </span>
+
+                    <h2>Students</h2>
+
+                    <p>
+                        Manage and monitor all registered students.
+                    </p>
+
+                </div>
+
+
+               <button
+    type="button"
+    class="add-student-btn"
+    id="addStudentBtn">
+    + Add New Student
+</button>
+
+            </div>
+
+
+
+            <!-- ================= STATISTICS ================= -->
+
+            <section class="student-stats">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+
+                        <span>Total Students</span>
+
+                        <h3>850</h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span>Active Students</span>
+
+                        <h3>812</h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <span>Books Issued</span>
+
+                        <h3>124</h3>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        ⛔
+                    </div>
+
+                    <div>
+
+                        <span>Inactive Students</span>
+
+                        <h3>38</h3>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ================= STUDENT CARD ================= -->
+
+            <section class="students-card">
+
+
+                <!-- ================= SEARCH AREA ================= -->
+
+                <div class="search-area">
+
+
+                    <div class="search-box">
+
+                        <span>🔍</span>
+
+                        <input
+                            type="text"
+                            placeholder="Search by student name, ID or email..."
+                        >
+
+                    </div>
+
+
+                    <select class="course-filter">
+
+                        <option>All Courses</option>
+                        <option>b.tech</option>
+                        <option>bca</option>
+                        <option>mca</option>
+                        <option>b.sc</option>
+                        <option>bba</option>
+                        
+                        
+
+                    </select>
+
+
+                    <select class="status-filter">
+
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- ================= TABLE ================= -->
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Student</th>
+                                <th>Student ID</th>
+                                <th>Course</th>
+                                <th>Email</th>
+                                <th>Books</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <!--
+                                JavaScript will load students here
+                                from localStorage.
+                            -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- ================= PAGINATION ================= -->
+
+                <div class="pagination">
+
+                    <span id="paginationInfo">
+                        Showing 0–0 of 0 students
+                    </span>
+
+                    <div id="paginationButtons"></div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="students.js"></script>
+
+<script>
+    console.log("STUDENTS JS FILE CONNECTED");
+</script>
+
+</body>
+</html>

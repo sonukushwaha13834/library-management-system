@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System | Book Requests</title>
+
+    <link rel="stylesheet" href="admin-book-requests.css">
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>📚</span>
+            <h2>LIBRARY SYSTEM</h2>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="admin-dashboard.html" class="nav-link">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="book.html" class="nav-link">
+                <span>📚</span>
+                <span>Books</span>
+            </a>
+
+            <a href="students.html" class="nav-link">
+                <span>👨‍🎓</span>
+                <span>Students</span>
+            </a>
+
+            <a href="issue-book.html" class="nav-link">
+                <span>📖</span>
+                <span>Issue Book</span>
+            </a>
+
+            <a href="return-book.html" class="nav-link">
+                <span>↩️</span>
+                <span>Return Book</span>
+            </a>
+
+            <a href="fines.html" class="nav-link">
+                <span>💰</span>
+                <span>Fines</span>
+            </a>
+
+            <a href="admin-book-history.html" class="nav-link">
+                <span>📋</span>
+                <span>Book History</span>
+            </a>
+
+            <a href="settings.html" class="nav-link">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <a href="index.html" class="logout-link" onclick="logoutAdmin(event)">
+            <span>🚪</span>
+            <span>Logout</span>
+        </a>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button
+                    class="menu-btn"
+                    type="button"
+                    onclick="toggleSidebar()"
+                >
+                    ☰
+                </button>
+
+                <div>
+                    <h1>Book Requests</h1>
+                    <p>Manage student book requests</p>
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <!-- Notification -->
+
+                <button
+                    class="notification-btn"
+                    type="button"
+                    onclick="openNotifications(event)"
+                >
+                    🔔
+                    <span class="notification-badge" id="notificationBadge">
+                        0
+                    </span>
+                </button>
+
+
+                <!-- Profile -->
+
+                <div class="profile-container">
+
+                    <button
+                        class="admin-profile"
+                        type="button"
+                        onclick="toggleProfileMenu(event)"
+                    >
+                        <div class="profile-avatar">
+                            A
+                        </div>
+
+                        <span class="arrow">⌄</span>
+                    </button>
+
+
+                    <div
+                        class="profile-menu"
+                        id="profileMenu"
+                    >
+
+                        <a href="admin-profile.html">
+                            <span>👤</span>
+                            <span>My Profile</span>
+                        </a>
+
+                        <a href="settings.html">
+                            <span>⚙️</span>
+                            <span>Settings</span>
+                        </a>
+
+                        <a
+                            href="index.html"
+                            onclick="logoutAdmin(event)"
+                        >
+                            <span>🚪</span>
+                            <span>Logout</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGE CONTENT ================= -->
+
+        <section class="page-content">
+
+            <!-- TOP CARD -->
+
+            <div class="page-title-card">
+
+                <div>
+                    <h2>Book Requests</h2>
+
+                    <p>
+                        View and manage all requests submitted by students.
+                    </p>
+                </div>
+
+                <div class="request-count">
+                    <span id="totalRequests">0</span>
+                    <small>Total Requests</small>
+                </div>
+
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div class="controls-card">
+
+                <div class="search-box">
+
+                    <span>🔍</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search by student or book name..."
+                    >
+
+                </div>
+
+
+                <div class="filter-box">
+
+                    <select id="statusFilter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="Pending">
+                            Pending
+                        </option>
+
+                        <option value="Approved">
+                            Approved
+                        </option>
+
+                        <option value="Rejected">
+                            Rejected
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- REQUESTS -->
+
+            <div class="requests-card">
+
+                <div
+                    id="requestsContainer"
+                    class="requests-container"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= SCRIPT ================= -->
+
+    <script src="admin-book-requests.js"></script>
+
+</body>
+</html>

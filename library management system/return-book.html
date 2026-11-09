@@ -1,0 +1,919 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System | Return Book</title>
+
+    <!-- YOUR EXISTING CSS -->
+    <link rel="stylesheet" href="return-book.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>Library</h2>
+
+                <span>
+                    Management System
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation">
+
+
+            <div class="menu-title">
+                MAIN MENU
+            </div>
+
+
+            <a href="admin-dashboard.html"
+               class="nav-link">
+
+                <span>📊</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="book.html"
+               class="nav-link">
+
+                <span>📚</span>
+
+                <span>
+                    Books
+                </span>
+
+            </a>
+
+
+            <a href="students.html"
+               class="nav-link">
+
+                <span>👨‍🎓</span>
+
+                <span>
+                    Students
+                </span>
+
+            </a>
+
+
+            <a href="issue-book.html"
+               class="nav-link">
+
+                <span>📖</span>
+
+                <span>
+                    Issue Book
+                </span>
+
+            </a>
+
+
+            <a href="return-book.html"
+               class="nav-link active">
+
+                <span>↩️</span>
+
+                <span>
+                    Return Book
+                </span>
+
+            </a>
+
+
+            <a href="fines.html"
+               class="nav-link">
+
+                <span>💰</span>
+
+                <span>
+                    Fines
+                </span>
+
+            </a>
+
+
+            <a href="reports.html"
+               class="nav-link">
+
+                <span>📈</span>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <a href="settings.html"
+               class="nav-link">
+
+                <span>⚙️</span>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html"
+               class="logout">
+
+                <span>🚪</span>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ==================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ==================================================
+             HEADER
+        ================================================== -->
+
+        <header class="top-header">
+
+
+            <div class="header-left">
+
+
+                <!-- MOBILE MENU -->
+
+                <button
+                    type="button"
+                    class="mobile-menu"
+                    onclick="toggleSidebar()">
+
+                    ☰
+
+                </button>
+
+
+                <!-- PAGE TITLE -->
+
+                <div class="page-title">
+
+                    <h1>
+                        Return Book
+                    </h1>
+
+                    <p>
+                        Manage returned books and calculate fines
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- HEADER RIGHT -->
+
+            <div class="header-right">
+
+
+                <!-- NOTIFICATION -->
+
+                <div
+                    class="notification"
+                    onclick="openNotifications(event)">
+
+                    <span class="notification-icon">
+                     🔔
+                    </span>
+
+                    <span class="notification-dot"></span>
+
+                </div>
+
+
+
+                <!-- ADMIN PROFILE -->
+
+                <div
+                    class="admin-profile"
+                    onclick="toggleProfileMenu(event)">
+
+
+                    <div class="profile-avatar">
+
+                        A
+
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Admin
+                        </strong>
+
+                        <span>
+                            Library Administrator
+                        </span>
+
+                    </div>
+
+
+                    <b>
+                        ▼
+                    </b>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- ==================================================
+             PAGE BODY
+        ================================================== -->
+
+        <section class="page-body">
+
+
+            <!-- ==================================================
+                 INTRO
+            ================================================== -->
+
+            <div class="page-intro">
+
+                <div class="section-label">
+                    BOOK MANAGEMENT
+                </div>
+
+                <h2>
+                    Return Book
+                </h2>
+
+                <p>
+                    Search an issued book and process its return.
+                </p>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 SEARCH CARD
+            ================================================== -->
+
+            <div class="search-card">
+
+
+                <div class="search-title">
+
+
+                    <div class="search-icon">
+                        🔍
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Find Issued Book
+                        </h3>
+
+                        <p>
+                            Search using student name, student ID or book title
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="search-row">
+
+
+                    <div class="search-box">
+
+                        <span>
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            placeholder="Search student name, ID or book title..."
+                            autocomplete="off">
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="search-btn">
+
+                        Search
+
+                    </button>
+
+
+                </div>
+                <div id="issued-books-results"></div>
+
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 RETURN LAYOUT
+            ================================================== -->
+
+            <div class="return-layout">
+
+
+                <!-- ==================================================
+                     LEFT COLUMN
+                ================================================== -->
+
+                <div>
+
+
+                    <!-- ==================================================
+                         STUDENT SECTION
+                    ================================================== -->
+
+                    <div class="return-card">
+
+
+                        <div class="card-section">
+
+
+                            <div class="section-heading">
+
+
+                                <div class="number">
+                                    01
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Student Details
+                                    </h4>
+
+                                    <p>
+                                        Details of the student holding this book
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="student-box">
+
+
+                                <div class="student-avatar">
+                                    ST
+                                </div>
+
+
+                                <div class="student-details">
+
+
+                                    <strong>
+                                        No Student
+                                    </strong>
+
+
+                                    <span>
+                                        -
+                                    </span>
+
+
+                                    <small>
+                                        -
+                                    </small>
+
+
+                                </div>
+
+
+                                <div class="issued-count">
+
+
+                                    <strong>
+                                        0
+                                    </strong>
+
+
+                                    <span>
+                                        Books Issued
+                                    </span>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ==================================================
+                             BOOK SECTION
+                        ================================================== -->
+
+                        <div class="card-section">
+
+
+                            <div class="section-heading">
+
+
+                                <div class="number">
+                                    02
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Book Details
+                                    </h4>
+
+                                    <p>
+                                        Currently issued book information
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="book-box">
+
+
+                                <div class="book-cover">
+                                    📖
+                                </div>
+
+
+                                <div class="book-details">
+
+
+                                    <strong>
+                                        No Issued Book
+                                    </strong>
+
+
+                                    <span>
+                                        -
+                                    </span>
+
+
+                                    <small>
+                                        ISBN: -
+                                    </small>
+
+
+                                </div>
+
+
+                                <div class="book-status">
+
+                                    <span>
+                                        Not Selected
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ==================================================
+                             DATES SECTION
+                        ================================================== -->
+
+                        <div class="card-section">
+
+
+                            <div class="section-heading">
+
+
+                                <div class="number">
+                                    03
+                                </div>
+
+
+                                <div>
+
+                                    <h4>
+                                        Issue & Return Dates
+                                    </h4>
+
+                                    <p>
+                                        Book issue, due and return dates
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="date-grid">
+
+
+                                <div class="date-box">
+
+                                    <span>
+                                        Issue Date
+                                    </span>
+
+                                    <strong>
+                                        -
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="date-box">
+
+                                    <span>
+                                        Due Date
+                                    </span>
+
+                                    <strong>
+                                        -
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="date-box">
+
+                                    <span>
+                                        Return Date
+                                    </span>
+
+                                    <strong>
+                                        -
+                                    </strong>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ==================================================
+                             FINE SECTION
+                        ================================================== -->
+
+                        <div class="fine-section">
+
+
+                            <div class="fine-icon">
+                                💰
+                            </div>
+
+
+                            <div class="fine-info">
+
+
+                                <span>
+                                    ON TIME
+                                </span>
+
+
+                                <strong>
+                                    Returned on time
+                                </strong>
+
+
+                                <p>
+                                    No fine is applicable.
+                                </p>
+
+
+                            </div>
+
+
+                            <div class="fine-amount">
+
+
+                                <span>
+                                    Total Fine
+                                </span>
+
+
+                                <strong>
+                                    ₹0
+                                </strong>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- ==================================================
+                             ACTIONS
+                        ================================================== -->
+
+                        <div class="form-actions">
+
+
+                            <button
+                                type="button"
+                                class="cancel-btn"
+                                onclick="clearReturnDetails()">
+
+                                Clear
+
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="return-btn">
+
+                                ↩ Return Book
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ==================================================
+                     RIGHT COLUMN
+                ================================================== -->
+
+                <div class="side-column">
+
+
+                    <!-- ==================================================
+                         TODAY'S RETURNS
+                    ================================================== -->
+
+                    <div class="stats-card">
+
+
+                        <div class="small-label">
+                            TODAY
+                        </div>
+
+
+                        <h3>
+                            Books Returned
+                        </h3>
+
+
+                        <div class="big-number">
+                            0
+                        </div>
+
+
+                        <p>
+                            Books returned today
+                        </p>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         FINE POLICY
+                    ================================================== -->
+
+                    <div class="fine-info-card">
+
+
+                        <div class="info-title">
+
+
+                            <div class="info-icon">
+                                💰
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Fine Policy
+                                </h3>
+
+                                <p>
+                                    Current library fine rules
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="policy-row">
+
+
+                            <span>
+                                Grace Period
+                            </span>
+
+
+                            <strong>
+                                0 Days
+                            </strong>
+
+
+                        </div>
+
+
+                        <div class="policy-row">
+
+
+                            <span>
+                                Fine Per Day
+                            </span>
+
+
+                            <strong>
+                                ₹10
+                            </strong>
+
+
+                        </div>
+
+
+                        <div class="policy-row">
+
+
+                            <span>
+                                Maximum Fine
+                            </span>
+
+
+                            <strong>
+                                No Limit
+                            </strong>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         RECENT RETURNS
+                    ================================================== -->
+
+                    <div class="recent-card">
+
+
+                        <div class="recent-header">
+
+
+                            <h3>
+                                Recent Returns
+                            </h3>
+
+
+                            <a href="admin-book-history.html">
+                                View All
+                            </a>
+
+
+                        </div>
+
+
+                        <p
+                            style="
+                                padding:20px 0;
+                                color:#929baa;
+                                font-size:9px;
+                            ">
+
+                            Loading recent returns...
+
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script src="return-book.js"></script>
+
+
+</body>
+
+</html>
+

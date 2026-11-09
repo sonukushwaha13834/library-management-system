@@ -1,0 +1,909 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | Library Management System</title>
+
+    <link rel="stylesheet" href="student.css">
+
+</head>
+
+
+<body>
+
+<div class="dashboard-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>Library</h2>
+
+                <span>
+                    Management System
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="menu-title">
+                MAIN MENU
+            </p>
+
+
+            <a href="student.html"
+               class="nav-link active">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="student-books.html"
+               class="nav-link">
+
+                <span>🔍</span>
+                <span>Browse Books</span>
+
+            </a>
+
+
+            <a href="my-books.html"
+               class="nav-link">
+
+                <span>📚</span>
+                <span>My Books</span>
+
+            </a>
+
+
+            <p class="menu-title">
+                MY LIBRARY
+            </p>
+
+
+            <!-- <a href="due-dates.html"
+               class="nav-link">
+
+                <span>📅</span>
+                <span>Due Dates</span>
+
+            </a> -->
+
+
+            <a href="book-history.html"
+               class="nav-link">
+
+                <span>📖</span>
+                <span>Book History</span>
+
+            </a>
+
+<!-- 
+            <a href="#"
+               class="nav-link">
+
+                <span>💰</span>
+                <span>My Fines</span>
+
+            </a> -->
+
+
+            <p class="menu-title">
+                ACCOUNT
+            </p>
+
+<!-- 
+            <a href="#"
+               class="nav-link"> -->
+               <a href="#" class="nav-link" id="openStudentProfile">
+
+                <span>👤</span>
+                <span>My Profile</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html"
+               class="logout">
+
+                <span>🚪</span>
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <div class="mobile-menu">
+                    ☰
+                </div>
+
+
+                <div class="page-title">
+
+                    <h1>
+                        Student Dashboard
+                    </h1>
+
+                    <p>
+                        Library Management System
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <button class="notification">
+
+                    🔔
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <div class="student-profile">
+
+                    <div class="profile-avatar">
+                        S
+                    </div>
+
+
+                    <div class="profile-info">
+
+                        <strong>
+                            Student
+                        </strong>
+
+                        <span>
+                            Library Member
+                        </span>
+
+                    </div>
+
+
+                    <span class="arrow">
+                        ⌄
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD BODY
+        ================================================== -->
+
+        <div class="dashboard-body">
+
+
+            <!-- =================================================
+                 WELCOME CARD
+            ================================================== -->
+
+            <section class="welcome-card">
+
+                <div class="welcome-text">
+
+                    <span class="welcome-label">
+                        STUDENT PORTAL
+                    </span>
+
+
+                    <h2>
+                        Welcome back, Student! 👋
+                    </h2>
+
+
+                    <p>
+                        Find your favorite books, check your issued books,
+                        and manage your library activities from here.
+                    </p>
+
+
+                    <a href="#"
+                       class="browse-button">
+
+                        🔍 Browse Books
+
+                    </a>
+
+                </div>
+
+
+                <div class="welcome-icon">
+                    🎓
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 COLLEGE & ADMIN INFORMATION
+            ================================================== -->
+
+            <section class="college-info-card">
+
+
+                <div class="college-info-header">
+
+                    <div class="college-info-icon">
+                        🏫
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            My College
+                        </h3>
+
+                        <p>
+                            College and administrator information
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="college-info-grid">
+
+
+                    <!-- COLLEGE NAME -->
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            College Name
+                        </span>
+
+                        <strong id="student-college-name">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <!-- COLLEGE ID -->
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            College ID
+                        </span>
+
+                        <strong id="student-college-id">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ADMIN NAME -->
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            College Admin
+                        </span>
+
+                        <strong id="student-admin-name">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ADMIN EMAIL -->
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Admin Email
+                        </span>
+
+                        <strong id="student-admin-email">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section class="statistics">
+
+
+                <!-- AVAILABLE BOOKS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        📚
+                    </div>
+
+
+                    <div class="stat-info">
+
+                        <span>
+                            Available Books
+                        </span>
+
+                        <h3>
+                            1,126
+                        </h3>
+
+                        <small>
+                            Books available to borrow
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ISSUED BOOKS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        📖
+                    </div>
+
+
+                    <div class="stat-info">
+
+                        <span>
+                            My Issued Books
+                        </span>
+
+                        <h3>
+                            3
+                        </h3>
+
+                        <small>
+                            Currently borrowed
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DUE SOON -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        📅
+                    </div>
+
+
+                    <div class="stat-info">
+
+                        <span>
+                            Due Soon
+                        </span>
+
+                        <h3>
+                            1
+                        </h3>
+
+                        <small>
+                            Book due this week
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FINE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        💰
+                    </div>
+
+
+                    <div class="stat-info">
+
+                        <span>
+                            My Fine
+                        </span>
+
+                        <h3>
+                            ₹0
+                        </h3>
+
+                        <small>
+                            No pending fine
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LOWER CONTENT
+            ================================================== -->
+
+            <section class="content-grid">
+
+
+                <!-- =================================================
+                     MY ISSUED BOOKS
+                ================================================== -->
+
+                <div class="content-card books-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                My Issued Books
+                            </h3>
+
+                            <p>
+                                Books currently borrowed by you
+                            </p>
+
+                        </div>
+
+
+                        <a href="#">
+                            View All
+                        </a>
+
+                    </div>
+
+
+                    <div class="book-list">
+
+
+                        <!-- BOOK 1 -->
+
+                        <div class="book-item">
+
+                            <div class="book-cover">
+                                📘
+                            </div>
+
+
+                            <div class="book-info">
+
+                                <strong>
+                                    Database Management System
+                                </strong>
+
+                                <span>
+                                    Author: Korth
+                                </span>
+
+                                <small>
+                                    Due: 25 Aug 2026
+                                </small>
+
+                            </div>
+
+
+                            <span class="due-status">
+                                Due Soon
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- BOOK 2 -->
+
+                        <div class="book-item">
+
+                            <div class="book-cover purple">
+                                📕
+                            </div>
+
+
+                            <div class="book-info">
+
+                                <strong>
+                                    Java Programming
+                                </strong>
+
+                                <span>
+                                    Author: Herbert Schildt
+                                </span>
+
+                                <small>
+                                    Due: 02 Sep 2026
+                                </small>
+
+                            </div>
+
+
+                            <span class="safe-status">
+                                Active
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- BOOK 3 -->
+
+                        <div class="book-item">
+
+                            <div class="book-cover orange">
+                                📗
+                            </div>
+
+
+                            <div class="book-info">
+
+                                <strong>
+                                    Computer Networks
+                                </strong>
+
+                                <span>
+                                    Author: Andrew S. Tanenbaum
+                                </span>
+
+                                <small>
+                                    Due: 10 Sep 2026
+                                </small>
+
+                            </div>
+
+
+                            <span class="safe-status">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     QUICK ACTIONS
+                ================================================== -->
+
+                <div class="content-card actions-card">
+
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h3>
+                                Quick Actions
+                            </h3>
+
+                            <p>
+                                Frequently used options
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <!-- BROWSE BOOKS -->
+
+                        <a href="student-books.html"
+                           class="action">
+
+                            <div class="action-icon blue">
+                                🔍
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Browse Books
+                                </strong>
+
+                                <span>
+                                    Search available books
+                                </span>
+
+                            </div>
+
+
+                            <b>
+                                ›
+                            </b>
+
+                        </a>
+
+
+
+                        <!-- MY BOOKS -->
+
+                        <a href="my-books.html"
+                           class="action">
+
+                            <div class="action-icon purple">
+                                📚
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    My Books
+                                </strong>
+
+                                <span>
+                                    View issued books
+                                </span>
+
+                            </div>
+
+
+                            <b>
+                                ›
+                            </b>
+
+                        </a>
+
+
+
+                        <!-- DUE DATES -->
+
+                        <a href="#"
+                           class="action">
+
+                            <div class="action-icon orange">
+                                📅
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    Check Due Dates
+                                </strong>
+
+                                <span>
+                                    See upcoming due dates
+                                </span>
+
+                            </div>
+
+
+                            <b>
+                                ›
+                            </b>
+
+                        </a>
+
+
+
+                        <!-- PROFILE -->
+
+                        <!-- <a href="#"
+                           class="action"> -->
+                           <a href="#" class="nav-link" id="openStudentProfileAction">
+
+                            <div class="action-icon green">
+                                👤
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    My Profile
+                                </strong>
+
+                                <span>
+                                    Manage your account
+                                </span>
+
+                            </div>
+
+
+                            <b>
+                                ›
+                            </b>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECOMMENDED BOOKS
+            ================================================== -->
+
+            <section class="content-card recommended-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h3>
+                            Recommended Books
+                        </h3>
+
+                        <p>
+                            Popular books you may like
+                        </p>
+
+                    </div>
+
+
+                    <a href="student-books.html">
+                        Browse All
+                    </a>
+
+                </div>
+
+
+                <!-- IMPORTANT:
+                     JS .recommended-books ko yahin find karega
+                -->
+
+                <div class="recommended-books">
+
+                    <!-- Backend books JavaScript se yahan load honge -->
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     STUDENT JAVASCRIPT
+========================================================= -->
+
+<script src="student.js"></script>
+
+<!-- STUDENT PROFILE POPUP -->
+<div id="studentProfileModal" class="profile-modal">
+    <div class="profile-modal-card">
+
+        <button type="button" class="profile-close" id="closeProfileModal">&times;</button>
+
+        <div class="profile-modal-avatar" id="modalStudentAvatar">S</div>
+
+        <h2>My Profile</h2>
+        <p class="profile-subtitle">Your library account information</p>
+
+        <div class="profile-details">
+            <div class="profile-detail">
+                <span>Full Name</span>
+                <strong id="modalStudentName">Loading...</strong>
+            </div>
+
+            <div class="profile-detail">
+                <span>Username</span>
+                <strong id="modalStudentUsername">Loading...</strong>
+            </div>
+
+            <div class="profile-detail">
+                <span>Email</span>
+                <strong id="modalStudentEmail">Loading...</strong>
+            </div>
+
+            <div class="profile-detail">
+                <span>College</span>
+                <strong id="modalStudentCollege">Loading...</strong>
+            </div>
+
+            <div class="profile-detail">
+                <span>College ID</span>
+                <strong id="modalStudentCollegeId">Loading...</strong>
+            </div>
+        </div>
+
+        <button type="button" class="profile-done-btn" id="doneProfileModal">
+            Close
+        </button>
+
+    </div>
+</div>
+
+<script src="student-profile-popup.js"></script>
+</body>
+</html>

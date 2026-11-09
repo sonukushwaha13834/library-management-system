@@ -1,0 +1,837 @@
+/* =========================================================
+   ISSUE BOOK PAGE
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fb;
+    color: #1e293b;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #172554;
+    color: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    background: #2563eb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.logo h2 {
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.logo span {
+    font-size: 11px;
+    color: #cbd5e1;
+}
+
+.sidebar-nav {
+    padding: 20px 12px;
+    flex: 1;
+}
+
+.sidebar-nav a,
+.sidebar-bottom a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 13px 15px;
+    margin-bottom: 5px;
+    border-radius: 9px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-bottom a:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+}
+
+.sidebar-nav a.active {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+}
+
+.sidebar-nav a span:first-child,
+.sidebar-bottom a span:first-child {
+    width: 22px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.sidebar-bottom {
+    padding: 15px 12px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.top-header {
+    height: 85px;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-left h1 {
+    font-size: 24px;
+    color: #0f172a;
+    margin-bottom: 3px;
+}
+
+.header-left p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-btn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+}
+
+.notification-btn:hover {
+    background: #f8fafc;
+}
+
+.notification-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 7px;
+    height: 7px;
+    background: #ef4444;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+
+/* =========================================================
+   ADMIN PROFILE
+   ========================================================= */
+
+.admin-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.admin-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.admin-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-info strong {
+    font-size: 14px;
+    color: #0f172a;
+}
+
+.admin-info span {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.profile-arrow {
+    color: #64748b;
+    margin-left: 4px;
+}
+
+.admin-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 52px;
+    width: 180px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 7px;
+    box-shadow: 0 10px 30px rgba(15,23,42,0.12);
+    z-index: 2000;
+}
+
+.admin-menu.show {
+    display: block;
+}
+
+.admin-menu a {
+    display: block;
+    padding: 10px 12px;
+    color: #334155;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.admin-menu a:hover {
+    background: #f1f5f9;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+.mobile-menu {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   PAGE CONTENT
+   ========================================================= */
+
+.page-content {
+    padding: 30px 32px 40px;
+}
+
+.page-intro {
+    margin-bottom: 24px;
+}
+
+.page-intro h2 {
+    font-size: 21px;
+    color: #0f172a;
+    margin-bottom: 5px;
+}
+
+.page-intro p {
+    font-size: 13px;
+    color: #64748b;
+}
+
+
+/* =========================================================
+   ISSUE LAYOUT
+   ========================================================= */
+
+.issue-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 24px;
+    align-items: start;
+}
+
+
+/* =========================================================
+   ISSUE CARD
+   ========================================================= */
+
+.issue-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 26px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+
+.form-section {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.section-icon {
+    width: 40px;
+    height: 40px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.section-title h3 {
+    font-size: 16px;
+    color: #0f172a;
+    margin-bottom: 3px;
+}
+
+.section-title p {
+    font-size: 12px;
+    color: #64748b;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    height: 44px;
+    padding: 0 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    color: #334155;
+    font-size: 13px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+
+/* =========================================================
+   STUDENT PREVIEW
+   ========================================================= */
+
+.student-preview,
+.book-preview {
+    margin-top: 15px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    align-items: center;
+    gap: 13px;
+}
+
+.preview-avatar {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    background: #dbeafe;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.preview-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.preview-details strong {
+    display: block;
+    color: #0f172a;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.preview-details span {
+    display: block;
+    color: #64748b;
+    font-size: 11px;
+}
+
+.preview-details small {
+    display: block;
+    color: #64748b;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.book-limit,
+.availability {
+    text-align: right;
+    min-width: 65px;
+}
+
+.book-limit small,
+.availability small {
+    display: block;
+    color: #64748b;
+    font-size: 10px;
+    margin-bottom: 3px;
+}
+
+.book-limit strong,
+.availability strong {
+    font-size: 16px;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   BOOK PREVIEW
+   ========================================================= */
+
+.book-cover {
+    width: 43px;
+    height: 52px;
+    background: #dbeafe;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.availability strong {
+    color: #16a34a;
+}
+
+
+/* =========================================================
+   DATES
+   ========================================================= */
+
+.date-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+
+/* =========================================================
+   FORM BUTTONS
+   ========================================================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 5px;
+}
+
+.cancel-btn,
+.issue-btn {
+    height: 43px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cancel-btn {
+    background: white;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+}
+
+.cancel-btn:hover {
+    background: #f8fafc;
+}
+
+.issue-btn {
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    color: white;
+}
+
+.issue-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+
+/* =========================================================
+   RIGHT COLUMN
+   ========================================================= */
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* =========================================================
+   RIGHT CARDS
+   ========================================================= */
+
+.guidelines-card,
+.today-card,
+.recent-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+
+.card-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-bottom: 17px;
+}
+
+.card-heading > span {
+    width: 35px;
+    height: 35px;
+    background: #eff6ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.card-heading h3 {
+    font-size: 14px;
+    color: #0f172a;
+    margin-bottom: 3px;
+}
+
+.card-heading p {
+    font-size: 11px;
+    color: #64748b;
+}
+
+
+/* =========================================================
+   GUIDELINES
+   ========================================================= */
+
+.guidelines-card ul {
+    padding-left: 18px;
+}
+
+.guidelines-card li {
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.guidelines-card li:last-child {
+    margin-bottom: 0;
+}
+
+.guidelines-card strong {
+    color: #334155;
+}
+
+
+/* =========================================================
+   TODAY
+   ========================================================= */
+
+.today-card {
+    background: #eff6ff;
+    border-color: #dbeafe;
+}
+
+.today-number {
+    font-size: 34px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   RECENT ISSUES
+   ========================================================= */
+
+.recent-issue-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.recent-issue-item:last-child {
+    border-bottom: none;
+}
+
+.recent-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #dbeafe;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.recent-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.recent-info strong {
+    display: block;
+    color: #334155;
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+
+.recent-info span {
+    display: block;
+    color: #64748b;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recent-date {
+    color: #94a3b8;
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+.empty-recent {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    padding: 12px 0 3px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .issue-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .recent-card {
+        grid-column: span 2;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .top-header {
+        height: 72px;
+        padding: 0 18px;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .header-left h1 {
+        font-size: 19px;
+    }
+
+    .header-left p {
+        display: none;
+    }
+
+    .admin-info,
+    .profile-arrow {
+        display: none;
+    }
+
+    .header-right {
+        gap: 10px;
+    }
+
+    .page-content {
+        padding: 22px 16px 30px;
+    }
+
+    .issue-card {
+        padding: 19px;
+    }
+
+    .right-column {
+        display: flex;
+    }
+
+    .recent-card {
+        grid-column: auto;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    .date-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .issue-btn {
+        width: 100%;
+    }
+
+    .student-preview,
+    .book-preview {
+        flex-wrap: wrap;
+    }
+
+    .book-limit,
+    .availability {
+        margin-left: auto;
+    }
+
+    .page-intro h2 {
+        font-size: 19px;
+    }
+
+}
