@@ -21,7 +21,7 @@ const SuperAdmin = require("./models/SuperAdmin");
 const Student = require("./models/Student");
 const Book = require("./models/Book");
 const BookRequest = require("./models/BookRequest");
-const Notification = require("./models/notification");
+const Notification = require("./models/Notification");
 const LibrarySettings = require("./models/LibrarySettings");
 
 const app = express();
