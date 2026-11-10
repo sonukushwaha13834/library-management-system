@@ -3123,7 +3123,7 @@ document.addEventListener("click", function (event) {
 
     </script> -->
 
-
+<script src="api-config.js"></script>
 <script>
 /* =========================================================
    ADMIN BOOK MANAGEMENT - BACKEND / MONGODB VERSION
@@ -3132,12 +3132,9 @@ document.addEventListener("click", function (event) {
 /* =========================================================
    CONFIGURATION
    ========================================================= */
-
-const API_BASE_URL =
-    "http://127.0.0.1:5000";
-
+const BOOK_API_BASE_URL = API_BASE_URL;
 const ADMIN_BOOKS_API =
-    API_BASE_URL + "/api/admin/books";
+    BOOK_API_BASE_URL + "/api/admin/books";
 
 const adminToken =
     localStorage.getItem("adminToken");

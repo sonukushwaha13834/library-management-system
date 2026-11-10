@@ -2,9 +2,7 @@
 let currentPage = 1;
 const studentsPerPage = 5;
 
-const API_BASE =
-    "http://localhost:5000/api/admin/students";
-
+const API_BASE = `${API_BASE_URL}/api/admin/students`;
 
 /* =========================================================
    PAGE INITIALIZATION
@@ -1890,7 +1888,7 @@ async function editStudent(studentId) {
 
         const response =
             await fetch(
-                "http://localhost:5000/api/admin/students/" +
+               API_BASE_URL + "/api/admin/students/" +
                 encodeURIComponent(studentId),
                 {
                     method: "GET",
@@ -2229,7 +2227,7 @@ async function editStudent(studentId) {
 
                     const response =
                         await fetch(
-                            "http://localhost:5000/api/admin/students/" +
+                            API_BASE_URL + "/api/admin/students/" +
                             encodeURIComponent(
                                 student.studentId
                             ),

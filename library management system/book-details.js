@@ -391,7 +391,7 @@ async function loadBookDetails(
 
         const response =
             await fetch(
-                `http://127.0.0.1:5000/api/student/books/${encodeURIComponent(bookId)}`,
+                `${API_BASE_URL}/api/student/books/${encodeURIComponent(bookId)}`,
                 {
                     method: "GET",
 
@@ -883,7 +883,7 @@ async function requestBook() {
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/student/book-requests",
+                `${API_BASE_URL}/api/student/book-requests`,
                 {
                     method: "POST",
 

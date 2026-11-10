@@ -2,8 +2,7 @@
    ADMIN BOOK REQUESTS JS
    BACKEND / MONGODB VERSION
 ========================================================= */
-
-const API_URL = "http://localhost:5000";
+const API_URL = API_BASE_URL;
 
 const adminToken =
     localStorage.getItem("adminToken");

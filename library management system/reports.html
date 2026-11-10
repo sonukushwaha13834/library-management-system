@@ -971,7 +971,7 @@ async function loadReports() {
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/admin/reports",
+                `${API_BASE_URL}/api/admin/reports`,
                 {
                     method: "GET",
 
@@ -1934,7 +1934,7 @@ async function downloadReport() {
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/admin/reports",
+               `${API_BASE_URL}/api/admin/reports`,
                 {
                     method: "GET",
 
@@ -2246,6 +2246,7 @@ function toggleSidebar() {
 }
 
 </script>
+<script src="api-config.js"></script>
 
 
 

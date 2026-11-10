@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/student/me",
+           `${API_BASE_URL}/api/student/me`,
             {
                 method: "GET",
 
@@ -252,7 +252,7 @@ async function loadStudentDashboard(loggedInUser) {
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/student/dashboard-stats",
+               `${API_BASE_URL}/api/student/dashboard-stats`,
                 {
                     method: "GET",
 
@@ -416,7 +416,7 @@ async function loadIssuedBooks(token) {
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/student/book-requests",
+               `${API_BASE_URL}/api/student/book-requests`,
                 {
                     method: "GET",
 
@@ -661,7 +661,7 @@ async function loadAvailableBooks(token) {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/student/books",
+           `${API_BASE_URL}/api/student/books`,
             {
                 method: "GET",
 

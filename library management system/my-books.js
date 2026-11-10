@@ -54,7 +54,7 @@ async function loadMyBooks(token) {
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/student/book-requests",
+                `${API_BASE_URL}/api/student/book-requests`,
                 {
                     method: "GET",
                     headers: {
@@ -583,7 +583,7 @@ async function returnBook(
 
         const response =
             await fetch(
-                `http://127.0.0.1:5000/api/student/book-requests/${encodeURIComponent(
+               `${API_BASE_URL}/api/student/book-requests/${encodeURIComponent(
                     requestId
                 )}/return`,
                 {
