@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
@@ -21,7 +21,7 @@ const SuperAdmin = require("./models/SuperAdmin");
 const Student = require("./models/Student");
 const Book = require("./models/Book");
 const BookRequest = require("./models/BookRequest");
-const Notification = require("./models/Notification");
+const Notification = require("./models/notification");
 const LibrarySettings = require("./models/LibrarySettings");
 
 const app = express();
@@ -274,37 +274,167 @@ const upload =
 
 // }
 
+// ==========================================================
+// RESEND EMAIL CONFIGURATION
+// ==========================================================
+
 let transporter = null;
 
-if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+if (
+    process.env.RESEND_API_KEY &&
+    process.env.EMAIL_FROM
+) {
 
-    transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        requireTLS: true,
+    transporter = {
 
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
+        async sendMail(mailOptions) {
+
+            const recipients = Array.isArray(mailOptions.to)
+                ? mailOptions.to
+                : [mailOptions.to];
+
+            // const emailData = {
+
+            //     sender: {
+            //         name: "Library Management System",
+            //         email: process.env.EMAIL_FROM
+            //     },
+
+            //     to: recipients,
+
+            //     subject: mailOptions.subject
+
+            // };
+
+            // if (mailOptions.html) {
+            //     emailData.htmlContent = mailOptions.html;
+            // }
+
+            // if (mailOptions.text) {
+            //     emailData.textContent = mailOptions.text;
+            // }
+
+            // const response = await fetch(
+            //     "https://api.resend.com/emails",
+            //     {
+            //         method: "POST",
+
+            //         headers: {
+            //             "Authorization":
+            //                 `Bearer ${process.env.RESEND_API_KEY}`,
+
+            //             "Content-Type": "application/json"
+            //         },
+
+            //         body: JSON.stringify(emailData)
+            //     }
+            // );
+
+            // const result = await response.json();
+
+            // if (!response.ok) {
+            //     throw new Error(
+            //         `Resend API Error: ${response.status} - ${
+            //             result.message || JSON.stringify(result)
+            //         }`
+            //     );
+            // }
+
+            // return {
+            //     messageId: result.id
+            // };
+
+
+const emailData = {
+    from: process.env.EMAIL_FROM,
+    to: recipients,
+    subject: mailOptions.subject
+};
+
+if (mailOptions.html) {
+    emailData.html = mailOptions.html;
+}
+
+if (mailOptions.text) {
+    emailData.text = mailOptions.text;
+}
+
+const response = await fetch(
+    "https://api.resend.com/emails",
+    {
+        method: "POST",
+
+        headers: {
+            "Authorization":
+                `Bearer ${process.env.RESEND_API_KEY}`,
+
+            "Content-Type": "application/json"
         },
 
-        connectionTimeout: 20000,
-        greetingTimeout: 20000,
-        socketTimeout: 30000
-    });
+        body: JSON.stringify(emailData)
+    }
+);
 
-    transporter.verify()
-        .then(() => {
-            console.log("Email transporter configured successfully.");
-        })
-        .catch((error) => {
-            console.error("Email transporter error:", error.message);
-        });
+const result = await response.json().catch(() => ({}));
+
+if (!response.ok) {
+    throw new Error(
+        `Resend API Error: ${response.status} - ${
+            result.message || JSON.stringify(result)
+        }`
+    );
+}
+
+return {
+    messageId: result.id
+};
+
+
+        }
+
+    };
+
+    console.log("Resend email API configured successfully.");
 
 } else {
-    console.warn("EMAIL_USER or EMAIL_PASS missing. Email sending disabled.");
+
+    console.warn(
+        "Resend API key or EMAIL_FROM missing. Email sending disabled."
+    );
+
 }
+
+// let transporter = null;
+
+// if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+
+//     transporter = nodemailer.createTransport({
+//         host: "smtp.gmail.com",
+//         port: 587,
+//         secure: false,
+//         requireTLS: true,
+
+//         auth: {
+//             user: process.env.EMAIL_USER,
+//             pass: process.env.EMAIL_PASS
+//         },
+
+//         connectionTimeout: 20000,
+//         greetingTimeout: 20000,
+//         socketTimeout: 30000
+//     });
+
+//     transporter.verify()
+//         .then(() => {
+//             console.log("Email transporter configured successfully.");
+//         })
+//         .catch((error) => {
+//             console.error("Email transporter error:", error.message);
+//         });
+
+// } else {
+//     console.warn("EMAIL_USER or EMAIL_PASS missing. Email sending disabled.");
+// }
 
 
 
@@ -2673,7 +2803,7 @@ app.post(
                         await transporter.sendMail({
 
                             from:
-                                process.env.EMAIL_USER,
+                                process.env.EMAIL_FROM,
 
                             to:
                                 student.email,
@@ -7007,7 +7137,7 @@ app.post(
             }
 
             await transporter.sendMail({
-                from: process.env.EMAIL_USER,
+               from: process.env.EMAIL_FROM,
                 to: email,
                 subject: "Library Management System - Email Verification OTP",
                 html: `
@@ -7284,7 +7414,7 @@ app.post(
             await superAdmin.save();
 
             await transporter.sendMail({
-                from: process.env.EMAIL_USER,
+                from: process.env.EMAIL_FROM,
                 to: superAdmin.email,
                 subject: "Super Admin Login OTP",
                 text: `Your Super Admin login OTP is ${otp}. It is valid for 10 minutes.`
@@ -7863,7 +7993,7 @@ createdAdmin = await Admin.create({
 
             // Send password setup email
             await transporter.sendMail({
-                from: process.env.EMAIL_USER,
+                from: process.env.EMAIL_FROM,
                 to: email,
                 subject: "Library Management System - Admin Account Approved",
                 html: `
